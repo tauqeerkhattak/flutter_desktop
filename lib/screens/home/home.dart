@@ -1,14 +1,50 @@
-import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
+import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
+import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 import 'package:get/get.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   final controller = Get.put(HomeController());
-  Home({Key? key}) : super(key: key);
+
+  @override
+  void initState() {
+    controller.topAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 500,
+      ),
+    );
+    controller.topAnimation = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(
+        parent: controller.topAnimationController,
+        curve: Curves.linearToEaseOut,
+      ),
+    );
+    controller.bottomAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 500,
+      ),
+    );
+    controller.bottomAnimation = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(
+        parent: controller.bottomAnimationController,
+        curve: Curves.linearToEaseOut,
+      ),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,49 +71,117 @@ class Home extends StatelessWidget {
           ),
           Expanded(
             flex: 9,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-              ),
-              itemCount: 100,
-              itemBuilder: (BuildContext context, int index) {
-                return Obx(
-                  () => GestureDetector(
-                    onTap: () {
-                      controller.selectedIndex.value = index;
-                    },
-                    child: Container(
-                      height: SizeConfig.screenHeight * 0.4,
-                      margin: const EdgeInsets.all(
-                        10,
-                      ),
-                      decoration: BoxDecoration(
-                        border: controller.selectedIndex.value == index
-                            ? Border.all(
-                                color: Constants.primaryTextColor,
-                                width: 1,
-                              )
-                            : null,
-                        borderRadius: BorderRadius.circular(
-                          10,
+            child: Stack(
+              children: [
+                NotificationListener<UserScrollNotification>(
+                  onNotification: (notification) {
+                    controller.cWidth.value = controller
+                            .scrollController.offset /
+                        controller.scrollController.position.maxScrollExtent;
+                    if (controller.cWidth < 0.025) {
+                      controller.topAnimationController.forward();
+                    } else if (controller.cWidth >= 0.02) {
+                      controller.topAnimationController.reverse();
+                    }
+                    if (controller.cWidth > 0.975) {
+                      controller.bottomAnimationController.forward();
+                    } else if (controller.cWidth <= 0.975) {
+                      controller.bottomAnimationController.reverse();
+                    }
+                    return true;
+                  },
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio:
+                          controller.itemHeight / controller.itemWidth,
+                    ),
+                    controller: controller.scrollController,
+                    itemCount: controller.itemsCount,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Obx(
+                        () => GestureDetector(
+                          onTap: () {
+                            controller.selectedIndex.value = index;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const Client();
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(
+                              10,
+                            ),
+                            decoration: BoxDecoration(
+                              border: controller.selectedIndex.value == index
+                                  ? Border.all(
+                                      color: Constants.primaryTextColor,
+                                      width: 1,
+                                    )
+                                  : null,
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 7,
+                                  child: ImageIcon(
+                                    AssetImage(
+                                      Constants.icons[index % 4],
+                                    ),
+                                    size: 35,
+                                    color: Constants.primaryTextColor,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: TitleText(
+                                    text: 'Name of the Action #$index',
+                                    fontSize: 12,
+                                    textColor: Constants.primaryTextColor,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        children: [
-                          const Icon(
-                            FluentIcons.clock,
-                          ),
-                          TitleText(
-                            text: 'Step $index',
-                            fontSize: 20,
-                            textColor: Constants.primaryTextColor,
-                          ),
-                        ],
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: -8,
+                  child: SizedBox(
+                    width: SizeConfig.screenWidth,
+                    child: FadeTransition(
+                      opacity: controller.topAnimation,
+                      child: CustomShadow(
+                        direction: VerticalDirection.down,
                       ),
                     ),
                   ),
-                );
-              },
+                ),
+                Positioned(
+                  bottom: 14,
+                  child: SizedBox(
+                    width: SizeConfig.screenWidth,
+                    child: FadeTransition(
+                      opacity: controller.bottomAnimation,
+                      child: CustomShadow(
+                        direction: VerticalDirection.up,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
