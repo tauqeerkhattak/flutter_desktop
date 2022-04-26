@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
 import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
+import 'package:flutter_desktop/widgets/grid_item.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   final controller = Get.put(HomeController());
-
+  bool hasScrolled = false;
   @override
   void initState() {
     controller.topAnimationController = AnimationController(
@@ -31,6 +35,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         curve: Curves.linearToEaseOut,
       ),
     );
+    controller.topAnimationController.forward();
+    controller.topAnimationController.reverse();
     controller.bottomAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -75,6 +81,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               children: [
                 NotificationListener<UserScrollNotification>(
                   onNotification: (notification) {
+                    if (!hasScrolled) {
+                      setState(() {
+                        hasScrolled = true;
+                      });
+                    }
+                    log("Notification ${notification.direction}");
                     controller.cWidth.value = controller
                             .scrollController.offset /
                         controller.scrollController.position.maxScrollExtent;
@@ -100,8 +112,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     itemCount: controller.itemsCount,
                     itemBuilder: (BuildContext context, int index) {
                       return Obx(
-                        () => GestureDetector(
-                          onTap: () {
+                        () => GridItem(
+                          onDoubleTap: () {
                             controller.selectedIndex.value = index;
                             Navigator.push(
                               context,
@@ -112,63 +124,36 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               ),
                             );
                           },
-                          child: Container(
-                            margin: const EdgeInsets.all(
-                              10,
-                            ),
-                            decoration: BoxDecoration(
-                              border: controller.selectedIndex.value == index
-                                  ? Border.all(
-                                      color: Constants.primaryTextColor,
-                                      width: 1,
-                                    )
-                                  : null,
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(2.0),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  flex: 7,
-                                  child: ImageIcon(
-                                    AssetImage(
-                                      Constants.icons[index % 4],
-                                    ),
-                                    size: 35,
-                                    color: Constants.primaryTextColor,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: TitleText(
-                                    text: 'Name of the Action #$index',
-                                    fontSize: 12,
-                                    textColor: Constants.primaryTextColor,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          onHover: (PointerHoverEvent event) {
+                            controller.selectedIndex.value = index;
+                          },
+                          border: controller.selectedIndex.value == index
+                              ? Border.all(
+                                  color: Constants.primaryColor,
+                                )
+                              : const Border.symmetric(),
+                          name: 'Name of the Action $index',
+                          icon: Constants.icons[index % 4],
+                          enabled: index == 11 ? false : true,
                         ),
                       );
                     },
                   ),
                 ),
-                Positioned(
-                  top: -8,
-                  child: SizedBox(
-                    width: SizeConfig.screenWidth,
-                    child: FadeTransition(
-                      opacity: controller.topAnimation,
-                      child: CustomShadow(
-                        direction: VerticalDirection.down,
+                !hasScrolled
+                    ? const SizedBox()
+                    : Positioned(
+                        top: -8,
+                        child: SizedBox(
+                          width: SizeConfig.screenWidth,
+                          child: FadeTransition(
+                            opacity: controller.topAnimation,
+                            child: CustomShadow(
+                              direction: VerticalDirection.down,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
                 Positioned(
                   bottom: 14,
                   child: SizedBox(

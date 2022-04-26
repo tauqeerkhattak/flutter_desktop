@@ -22,7 +22,7 @@ class TitleText extends StatelessWidget {
       text!,
       textAlign: textAlign,
       style: TextStyle(
-        fontSize: fontSize!.toDouble(),
+        fontSize: fontSize?.toDouble(),
         fontWeight: weight,
         color: textColor,
       ),
