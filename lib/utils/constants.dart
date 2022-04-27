@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,4 +16,20 @@ class Constants {
     'assets/icons/camcorder.png',
     'assets/icons/aim.png',
   ];
+  static List<String> names = [
+    'Stop now Dead',
+    'love',
+    'Aha aha aha',
+    'We are the loser',
+    'love to the end',
+    'mRS ZZZZZZ',
+    'Stop now with Love',
+  ];
+
+  static void setWindow() async {
+    Size size = await DesktopWindow.getWindowSize();
+    log('Size: ${size.width} ${size.height}');
+    await DesktopWindow.setMinWindowSize(Size(size.width, size.height));
+    await DesktopWindow.setMaxWindowSize(Size(size.width, size.height));
+  }
 }

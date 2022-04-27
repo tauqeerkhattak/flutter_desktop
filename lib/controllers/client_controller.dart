@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class ClientController extends GetxController {
   Rx<int> selectedIndex = (-1).obs;
   int itemsCount = 30;
   int itemHeight = 80;

@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
 
   FlutterWindow window(project);
-  Win32Window::Point origin(10, 10);
+  Win32Window::Point origin(50, 10);
   double width = GetSystemMetrics(SM_CXSCREEN) * 0.25;
   double height = GetSystemMetrics(SM_CYSCREEN) * 0.60;
   int intWidth = (int)width;

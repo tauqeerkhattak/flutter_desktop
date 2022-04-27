@@ -4,7 +4,7 @@ import 'package:flutter_desktop/widgets/title_text.dart';
 
 import '../utils/constants.dart';
 
-class GridItem extends StatelessWidget {
+class HomeGridItem extends StatelessWidget {
   final Function() onDoubleTap;
   final Function(PointerHoverEvent) onHover;
   final Border border;
@@ -12,7 +12,7 @@ class GridItem extends StatelessWidget {
   final String icon;
   final bool enabled;
 
-  const GridItem({
+  const HomeGridItem({
     Key? key,
     required this.onDoubleTap,
     required this.onHover,

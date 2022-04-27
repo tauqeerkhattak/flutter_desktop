@@ -6,6 +6,7 @@ class TitleText extends StatelessWidget {
   final FontWeight? weight;
   final Color? textColor;
   final TextAlign? textAlign;
+  final String? fontFamily;
 
   const TitleText({
     Key? key,
@@ -14,6 +15,7 @@ class TitleText extends StatelessWidget {
     this.weight,
     this.textColor,
     this.textAlign,
+    this.fontFamily,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class TitleText extends StatelessWidget {
       text!,
       textAlign: textAlign,
       style: TextStyle(
+        fontFamily: fontFamily,
         fontSize: fontSize?.toDouble(),
         fontWeight: weight,
         color: textColor,

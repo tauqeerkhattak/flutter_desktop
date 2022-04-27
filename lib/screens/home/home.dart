@@ -1,13 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
 import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
+import 'package:flutter_desktop/widgets/custom_animation.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
-import 'package:flutter_desktop/widgets/grid_item.dart';
+import 'package:flutter_desktop/widgets/custom_sheet.dart';
+import 'package:flutter_desktop/widgets/home_grid_item.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 import 'package:get/get.dart';
 
@@ -21,36 +22,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   final controller = Get.put(HomeController());
   bool hasScrolled = false;
-  @override
-  void initState() {
-    controller.topAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
-    );
-    controller.topAnimation = Tween<double>(begin: 1, end: 0).animate(
-      CurvedAnimation(
-        parent: controller.topAnimationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
-    controller.topAnimationController.forward();
-    controller.topAnimationController.reverse();
-    controller.bottomAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
-    );
-    controller.bottomAnimation = Tween<double>(begin: 1, end: 0).animate(
-      CurvedAnimation(
-        parent: controller.bottomAnimationController,
-        curve: Curves.linearToEaseOut,
-      ),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,97 +47,113 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-            flex: 9,
+            flex: 12,
             child: Stack(
               children: [
-                NotificationListener<UserScrollNotification>(
-                  onNotification: (notification) {
-                    if (!hasScrolled) {
-                      setState(() {
-                        hasScrolled = true;
-                      });
-                    }
-                    log("Notification ${notification.direction}");
-                    controller.cWidth.value = controller
-                            .scrollController.offset /
-                        controller.scrollController.position.maxScrollExtent;
-                    if (controller.cWidth < 0.025) {
-                      controller.topAnimationController.forward();
-                    } else if (controller.cWidth >= 0.02) {
-                      controller.topAnimationController.reverse();
-                    }
-                    if (controller.cWidth > 0.975) {
-                      controller.bottomAnimationController.forward();
-                    } else if (controller.cWidth <= 0.975) {
-                      controller.bottomAnimationController.reverse();
-                    }
-                    return true;
-                  },
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio:
-                          controller.itemHeight / controller.itemWidth,
-                    ),
-                    controller: controller.scrollController,
-                    itemCount: controller.itemsCount,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Obx(
-                        () => GridItem(
-                          onDoubleTap: () {
-                            controller.selectedIndex.value = index;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const Client();
-                                },
-                              ),
-                            );
-                          },
-                          onHover: (PointerHoverEvent event) {
-                            controller.selectedIndex.value = index;
-                          },
-                          border: controller.selectedIndex.value == index
-                              ? Border.all(
-                                  color: Constants.primaryColor,
-                                )
-                              : const Border.symmetric(),
-                          name: 'Name of the Action $index',
-                          icon: Constants.icons[index % 4],
-                          enabled: index == 11 ? false : true,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                !hasScrolled
-                    ? const SizedBox()
-                    : Positioned(
-                        top: -8,
-                        child: SizedBox(
-                          width: SizeConfig.screenWidth,
-                          child: FadeTransition(
-                            opacity: controller.topAnimation,
-                            child: CustomShadow(
-                              direction: VerticalDirection.down,
-                            ),
+                SizedBox(
+                  width: SizeConfig.screenWidth,
+                  height: SizeConfig.screenHeight,
+                  child: CustomAnimation(
+                    controller: controller,
+                    shadowType: ShadowType.dark,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio:
+                            controller.itemHeight / controller.itemWidth,
+                      ),
+                      controller: controller.scrollController,
+                      itemCount: controller.itemsCount,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Obx(
+                          () => HomeGridItem(
+                            onDoubleTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return Client();
+                                  },
+                                ),
+                              );
+                            },
+                            onHover: (PointerHoverEvent event) {
+                              controller.selectedIndex.value = index;
+                            },
+                            border: controller.selectedIndex.value == index
+                                ? Border.all(
+                                    color: Constants.primaryColor,
+                                  )
+                                : const Border.symmetric(),
+                            name: 'Name of the Action $index',
+                            icon: Constants.icons[index % 4],
+                            enabled: index == 11 ? false : true,
                           ),
-                        ),
-                      ),
-                Positioned(
-                  bottom: 14,
-                  child: SizedBox(
-                    width: SizeConfig.screenWidth,
-                    child: FadeTransition(
-                      opacity: controller.bottomAnimation,
-                      child: CustomShadow(
-                        direction: VerticalDirection.up,
-                      ),
+                        );
+                      },
                     ),
                   ),
                 ),
               ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: SizeConfig.screenWidth,
+              height: double.maxFinite,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border(
+                  top: BorderSide(
+                    color: Constants.primaryTextColor,
+                  ),
+                ),
+              ),
+              child: InkWell(
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 8,
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          left: 10,
+                        ),
+                        child: TitleText(
+                          text: 'Finnish Shoot',
+                          fontSize: 24,
+                          textAlign: TextAlign.left,
+                          textColor: Constants.primaryTextColor,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.keyboard_arrow_up_rounded,
+                          color: Constants.primaryTextColor,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          final sheetController =
+                              Get.put(BottomSheetController());
+                          CustomSheet.showBottomSheet(
+                            context: context,
+                            controller: sheetController,
+                            buttonText: 'Clear All',
+                            title: 'THE SERVER',
+                            titleIcon: Icons.tv,
+                            subtitle: 'EFFECTS',
+                            subtitleIconsLength: 3,
+                            bottomText: 'Playing "5" Effect',
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
