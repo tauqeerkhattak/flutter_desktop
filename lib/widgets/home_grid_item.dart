@@ -47,7 +47,7 @@ class HomeGridItem extends StatelessWidget {
                   AssetImage(
                     icon,
                   ),
-                  size: 35,
+                  size: Constants.iconSize,
                   color: enabled ? Constants.primaryTextColor : Colors.grey,
                 ),
               ),
@@ -55,7 +55,7 @@ class HomeGridItem extends StatelessWidget {
                 flex: 4,
                 child: TitleText(
                   text: name,
-                  fontSize: 12,
+                  fontSize: Constants.headingSize1,
                   textColor: enabled ? Constants.primaryTextColor : Colors.grey,
                   textAlign: TextAlign.center,
                 ),

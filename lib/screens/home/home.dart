@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
@@ -34,26 +35,49 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           Expanded(
             flex: 1,
             child: Container(
+              color: Constants.dark,
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                padding: const EdgeInsets.only(
+                  right: 30,
+                ),
+                icon: Icon(
+                  Icons.close,
+                  color: Constants.dark,
+                  size: Constants.iconSize2,
+                ),
+                onPressed: () {
+                  appWindow.close();
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
               margin: const EdgeInsets.only(
                 left: 10,
               ),
               alignment: Alignment.centerLeft,
               child: TitleText(
                 text: 'STEPS',
-                fontSize: 24,
+                fontSize: Constants.headingSize,
                 weight: FontWeight.bold,
+                textAlign: TextAlign.left,
                 textColor: Constants.primaryTextColor,
               ),
             ),
           ),
           Expanded(
-            flex: 12,
+            flex: 16,
             child: Stack(
               children: [
                 SizedBox(
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight,
                   child: CustomAnimation(
+                    shadowSpreadRadius: 4,
+                    singleShadowWidth: 0.009,
                     controller: controller,
                     shadowType: ShadowType.dark,
                     child: GridView.builder(
@@ -98,7 +122,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               width: SizeConfig.screenWidth,
               height: double.maxFinite,
@@ -121,7 +145,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ),
                         child: TitleText(
                           text: 'Finnish Shoot',
-                          fontSize: 24,
+                          fontSize: Constants.headingSize - 1,
                           textAlign: TextAlign.left,
                           textColor: Constants.primaryTextColor,
                         ),
@@ -130,15 +154,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     Expanded(
                       flex: 2,
                       child: IconButton(
+                        padding: EdgeInsets.zero,
                         icon: Icon(
-                          Icons.keyboard_arrow_up_rounded,
+                          Icons.keyboard_arrow_up,
                           color: Constants.primaryTextColor,
-                          size: 30,
+                          size: Constants.iconSize1,
                         ),
                         onPressed: () {
                           final sheetController =
                               Get.put(BottomSheetController());
                           CustomSheet.showBottomSheet(
+                            isMusic: false,
                             context: context,
                             controller: sheetController,
                             buttonText: 'Clear All',

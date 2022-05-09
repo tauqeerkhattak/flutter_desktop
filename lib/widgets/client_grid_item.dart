@@ -25,6 +25,9 @@ class ClientGridItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: border,
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
           ),
           padding: const EdgeInsets.all(3.0),
           margin: const EdgeInsets.all(5),
@@ -52,7 +55,7 @@ class ClientGridItem extends StatelessWidget {
                     text: name,
                     textColor: Constants.primaryTextColor,
                     textAlign: TextAlign.center,
-                    fontSize: 14,
+                    fontSize: Constants.headingSize1,
                   ),
                 ),
               ),

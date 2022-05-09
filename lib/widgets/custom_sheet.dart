@@ -4,10 +4,13 @@ import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
+import 'package:get/get.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 import 'custom_animation.dart';
 
 class CustomSheet {
+  final controller = Get.find();
   static void showBottomSheet({
     required BuildContext context,
     required controller,
@@ -17,6 +20,7 @@ class CustomSheet {
     required String subtitle,
     required int subtitleIconsLength,
     required String bottomText,
+    required bool isMusic,
   }) async {
     showModalBottomSheet(
       context: context,
@@ -38,7 +42,7 @@ class CustomSheet {
                           child: Icon(
                             titleIcon,
                             color: Constants.primaryTextColor,
-                            size: 30,
+                            size: Constants.iconSize2,
                           ),
                         ),
                         Expanded(
@@ -47,7 +51,7 @@ class CustomSheet {
                             text: title,
                             textColor: Constants.primaryColor,
                             weight: FontWeight.bold,
-                            fontSize: 24,
+                            fontSize: Constants.headingSize1,
                           ),
                         ),
                         const Expanded(
@@ -58,7 +62,7 @@ class CustomSheet {
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 5,
                     child: Container(
                       width: SizeConfig.screenWidth,
                       decoration: BoxDecoration(
@@ -75,7 +79,7 @@ class CustomSheet {
                               margin: const EdgeInsets.only(left: 10),
                               child: TitleText(
                                 text: subtitle,
-                                fontSize: 24,
+                                fontSize: Constants.headingSize,
                                 textColor: Constants.primaryTextColor,
                                 weight: FontWeight.bold,
                               ),
@@ -86,21 +90,26 @@ class CustomSheet {
                               margin: const EdgeInsets.only(
                                 bottom: 10,
                               ),
+                              alignment: Alignment.centerLeft,
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: List.generate(
-                                  subtitleIconsLength,
-                                  (index) {
-                                    return ImageIcon(
+                                    MainAxisAlignment.spaceBetween,
+                                children:
+                                    List.generate(subtitleIconsLength, (index) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(
+                                      left: 20,
+                                      right: 20,
+                                    ),
+                                    child: ImageIcon(
                                       AssetImage(
-                                        Constants.icons[index + 1],
+                                        Constants.icons[index],
                                       ),
                                       color: Constants.primaryTextColor,
-                                      size: 50,
-                                    );
-                                  },
-                                ),
+                                      size: Constants.iconSize,
+                                    ),
+                                  );
+                                }),
                               ),
                             ),
                           ),
@@ -109,10 +118,12 @@ class CustomSheet {
                     ),
                   ),
                   Expanded(
-                    flex: 9,
+                    flex: 14,
                     child: CustomAnimation(
+                      shadowSpreadRadius: 1,
                       controller: controller,
                       shadowType: ShadowType.light,
+                      singleShadowWidth: 0.004,
                       child: ListView.builder(
                         itemCount: 30,
                         controller: controller.scrollController,
@@ -123,49 +134,80 @@ class CustomSheet {
                             child: Row(
                               children: [
                                 Expanded(
-                                  flex: 5,
+                                  flex: 4,
                                   child: Container(
                                     margin: const EdgeInsets.only(left: 20),
                                     child: TitleText(
-                                      text: Constants.names[
-                                          index % Constants.names.length],
-                                      fontSize: 20,
+                                      text: isMusic
+                                          ? Constants.calls[
+                                              index % Constants.calls.length]
+                                          : Constants.names[
+                                              index % Constants.names.length],
+                                      fontSize: Constants.headingSize2 + 5,
                                       textColor: Constants.primaryTextColor,
                                     ),
                                   ),
                                 ),
                                 Expanded(
                                   flex: 4,
-                                  child: TitleText(
-                                    text: '120 : 04',
-                                    fontSize: 30,
-                                    fontFamily: 'Digital7',
-                                    textColor: Constants.primaryTextColor,
-                                    textAlign: TextAlign.center,
+                                  child: Countdown(
+                                    seconds: 10 * index,
+                                    build: (BuildContext context, double time) {
+                                      int minutes = time ~/ 60;
+                                      int seconds = (time % 60).toInt();
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          TitleText(
+                                            text: minutes.toString().padLeft(
+                                                  2,
+                                                  '0',
+                                                ),
+                                            fontSize: Constants.headingSize,
+                                            fontFamily: 'Digital7',
+                                            textColor:
+                                                Constants.primaryTextColor,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          TitleText(
+                                            text:
+                                                ' : ${seconds.toString().padLeft(2, '0')}',
+                                            fontSize: Constants.headingSize,
+                                            fontFamily: 'Digital7',
+                                            textColor:
+                                                Constants.primaryTextColor,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: IconButton(
-                                    icon: Icon(
-                                      CupertinoIcons.refresh_bold,
-                                      color: Constants.primaryTextColor,
-                                      size: 30,
+                                if (!isMusic)
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        CupertinoIcons.refresh_bold,
+                                        color: Constants.primaryTextColor,
+                                        size: Constants.iconSize1,
+                                      ),
+                                      onPressed: () {},
                                     ),
-                                    onPressed: () {},
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      CupertinoIcons.clear,
-                                      color: Colors.red,
-                                      size: 30,
+                                if (!isMusic)
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        CupertinoIcons.clear,
+                                        color: Colors.red,
+                                        size: Constants.iconSize1,
+                                      ),
+                                      onPressed: () {},
                                     ),
-                                    onPressed: () {},
                                   ),
-                                ),
                               ],
                             ),
                           );
@@ -174,7 +216,7 @@ class CustomSheet {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         border: Border(
@@ -192,17 +234,18 @@ class CustomSheet {
                               child: TitleText(
                                 text: bottomText,
                                 textColor: Constants.primaryTextColor,
-                                fontSize: 24,
+                                fontSize: Constants.headingSize1,
                               ),
                             ),
                           ),
                           Expanded(
                             flex: 2,
                             child: IconButton(
+                              padding: EdgeInsets.zero,
                               icon: Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 color: Constants.primaryTextColor,
-                                size: 30,
+                                size: Constants.iconSize2,
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
@@ -219,7 +262,7 @@ class CustomSheet {
                 right: 20,
                 child: Container(
                   width: SizeConfig.screenWidth * 0.4,
-                  height: SizeConfig.screenHeight * 0.135,
+                  height: Constants.mainButtonSize,
                   decoration: BoxDecoration(
                     border: Border(
                       left: BorderSide(
@@ -242,7 +285,7 @@ class CustomSheet {
                     text: buttonText,
                     textColor: Constants.primaryTextColor,
                     textAlign: TextAlign.center,
-                    fontSize: 24,
+                    fontSize: Constants.headingSize,
                   ),
                 ),
               ),

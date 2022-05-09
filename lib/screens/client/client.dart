@@ -51,7 +51,7 @@ class Client extends StatelessWidget {
                           const AssetImage(
                             'assets/icons/linux.png',
                           ),
-                          size: 35,
+                          size: Constants.iconSize2,
                           color: Constants.primaryTextColor,
                         ),
                         const SizedBox(
@@ -59,7 +59,7 @@ class Client extends StatelessWidget {
                         ),
                         TitleText(
                           text: 'DOOM GAVE',
-                          fontSize: 24,
+                          fontSize: Constants.headingSize1,
                           weight: FontWeight.bold,
                           textColor: Constants.primaryColor,
                         ),
@@ -68,8 +68,10 @@ class Client extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 9,
+                  flex: 19,
                   child: CustomAnimation(
+                    singleShadowWidth: 0.009,
+                    shadowSpreadRadius: 4,
                     controller: controller,
                     shadowType: ShadowType.dark,
                     child: GridView.builder(
@@ -102,7 +104,7 @@ class Client extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: Container(
                     width: SizeConfig.screenWidth,
                     height: double.maxFinite,
@@ -125,7 +127,7 @@ class Client extends StatelessWidget {
                               ),
                               child: TitleText(
                                 text: 'Finnish Shoot',
-                                fontSize: 24,
+                                fontSize: Constants.headingSize1,
                                 textAlign: TextAlign.left,
                                 textColor: Constants.primaryTextColor,
                               ),
@@ -134,23 +136,25 @@ class Client extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: IconButton(
+                              padding: EdgeInsets.zero,
                               icon: Icon(
                                 Icons.keyboard_arrow_up_rounded,
                                 color: Constants.primaryTextColor,
-                                size: 30,
+                                size: Constants.iconSize2,
                               ),
                               onPressed: () {
                                 final sheetController =
                                     Get.put(BottomSheetController());
                                 CustomSheet.showBottomSheet(
+                                  isMusic: true,
                                   context: context,
                                   controller: sheetController,
-                                  buttonText: 'Clear All',
-                                  title: 'THE SERVER',
+                                  buttonText: 'Call',
+                                  title: 'SWETNESS',
                                   titleIcon: Icons.tv,
-                                  subtitle: 'EFFECTS',
-                                  subtitleIconsLength: 3,
-                                  bottomText: 'Playing "5" Effect',
+                                  subtitle: 'RINGS',
+                                  subtitleIconsLength: 1,
+                                  bottomText: 'Ringing... 3/8',
                                 );
                               },
                             ),
@@ -164,25 +168,25 @@ class Client extends StatelessWidget {
             ),
             Positioned(
               left: 10,
-              top: SizeConfig.screenHeight * 0.11,
+              top: SizeConfig.screenHeight * 0.05,
               child: Row(
                 children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Constants.primaryTextColor,
-                      size: 24,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  // IconButton(
+                  //   icon: Icon(
+                  //     Icons.arrow_back,
+                  //     color: Constants.primaryTextColor,
+                  //     size: Constants.iconSize2,
+                  //   ),
+                  //   onPressed: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  // ),
                   const SizedBox(
                     width: 10,
                   ),
                   TitleText(
                     text: 'CLIENT',
-                    fontSize: 24,
+                    fontSize: Constants.headingSize1,
                     weight: FontWeight.bold,
                     textColor: Constants.primaryTextColor,
                   ),
@@ -193,7 +197,7 @@ class Client extends StatelessWidget {
               right: 20,
               child: Container(
                 width: SizeConfig.screenWidth * 0.4,
-                height: SizeConfig.screenHeight * 0.135,
+                height: Constants.mainButtonSize,
                 decoration: BoxDecoration(
                   border: Border(
                     left: BorderSide(
@@ -216,7 +220,7 @@ class Client extends StatelessWidget {
                   text: 'Send Message',
                   textColor: Constants.primaryTextColor,
                   textAlign: TextAlign.center,
-                  fontSize: 14,
+                  fontSize: Constants.headingSize1,
                 ),
               ),
             ),

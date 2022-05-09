@@ -38,6 +38,9 @@ dependencies:
   get: ^4.6.1
   desktop_window: ^0.4.0
   auto_size_text: ^3.0.0
+  stop_watch_timer: ^1.4.0
+  bitsdojo_window: ^0.1.1+1
+  timer_count_down: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +52,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  msix: ^3.6.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -81,6 +85,9 @@ flutter:
     - family: Digital7
       fonts:
         - asset: assets/fonts/digital-7/digital-7.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Black.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

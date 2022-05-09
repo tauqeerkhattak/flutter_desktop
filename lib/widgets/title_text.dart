@@ -24,7 +24,7 @@ class TitleText extends StatelessWidget {
       text!,
       textAlign: textAlign,
       style: TextStyle(
-        fontFamily: fontFamily,
+        fontFamily: fontFamily ?? 'Roboto',
         fontSize: fontSize?.toDouble(),
         fontWeight: weight,
         color: textColor,
