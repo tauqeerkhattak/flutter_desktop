@@ -81,41 +81,53 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     singleShadowWidth: 0.009,
                     controller: controller,
                     shadowType: ShadowType.dark,
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio:
-                            controller.itemHeight / controller.itemWidth,
+                    child: RawScrollbar(
+                      thumbColor: Constants.scrollBarColor,
+                      thickness: 10,
+                      radius: const Radius.circular(
+                        15,
                       ),
-                      controller: controller.scrollController,
-                      itemCount: controller.itemsCount,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Obx(
-                          () => HomeGridItem(
-                            onDoubleTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return Client();
-                                  },
-                                ),
-                              );
-                            },
-                            onHover: (PointerHoverEvent event) {
-                              controller.selectedIndex.value = index;
-                            },
-                            border: controller.selectedIndex.value == index
-                                ? Border.all(
-                                    color: Constants.primaryColor,
-                                  )
-                                : const Border.symmetric(),
-                            name: 'Name of the Action $index',
-                            icon: Constants.icons[index % 4],
-                            enabled: index == 11 ? false : true,
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio:
+                                controller.itemHeight / controller.itemWidth,
                           ),
-                        );
-                      },
+                          controller: controller.scrollController,
+                          itemCount: controller.itemsCount,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Obx(
+                              () => HomeGridItem(
+                                onDoubleTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return Client();
+                                      },
+                                    ),
+                                  );
+                                },
+                                onHover: (PointerHoverEvent event) {
+                                  controller.selectedIndex.value = index;
+                                },
+                                border: controller.selectedIndex.value == index
+                                    ? Border.all(
+                                        color: Constants.primaryColor,
+                                      )
+                                    : const Border.symmetric(),
+                                name: 'Name of the Action $index',
+                                icon: Constants.icons[index % 4],
+                                enabled: index == 11 ? false : true,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),

@@ -11,6 +11,8 @@ class Constants {
   static Color primaryTextColor = Colors.white;
   static Color secondaryColor = Colors.grey;
   static Color backgroundColor = Colors.grey.shade800;
+  static Color scrollBarColor = Color(0xff707070);
+  static Color borderColor = Color(0xffC4C4C4);
   static Color dark = Color(0xff313131);
 
   // static double headingSize = SizeConfig.screenHeight * 0.04;

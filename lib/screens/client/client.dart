@@ -74,32 +74,45 @@ class Client extends StatelessWidget {
                     shadowSpreadRadius: 4,
                     controller: controller,
                     shadowType: ShadowType.dark,
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio:
-                            controller.itemHeight / controller.itemWidth,
+                    child: RawScrollbar(
+                      thumbColor: Constants.scrollBarColor,
+                      thickness: 10,
+                      radius: const Radius.circular(
+                        15,
                       ),
-                      itemCount: controller.itemsCount,
-                      controller: controller.scrollController,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Obx(
-                          () => ClientGridItem(
-                            onHover: (event) {
-                              controller.selectedIndex.value = index;
-                            },
-                            onDoubleTap: () {
-                              controller.selectedIndex.value = index;
-                            },
-                            border: controller.selectedIndex.value == index
-                                ? Border.all(
-                                    color: Constants.primaryColor,
-                                  )
-                                : const Border.symmetric(),
-                            name: 'Name of the media $index',
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio:
+                                controller.itemHeight / controller.itemWidth,
                           ),
-                        );
-                      },
+                          itemCount: controller.itemsCount,
+                          controller: controller.scrollController,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Obx(
+                              () => ClientGridItem(
+                                onHover: (event) {
+                                  controller.selectedIndex.value = index;
+                                },
+                                showBadge: index % 5 == 0,
+                                onDoubleTap: () {
+                                  controller.selectedIndex.value = index;
+                                },
+                                border: controller.selectedIndex.value == index
+                                    ? Border.all(
+                                        color: Constants.primaryColor,
+                                      )
+                                    : const Border.symmetric(),
+                                name: 'Name of the media $index',
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),

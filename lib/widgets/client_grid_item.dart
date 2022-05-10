@@ -1,5 +1,6 @@
-import 'package:fluent_ui/fluent_ui.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 
@@ -8,12 +9,14 @@ class ClientGridItem extends StatelessWidget {
   final Function() onDoubleTap;
   final Border border;
   final String name;
+  final bool showBadge;
   const ClientGridItem({
     Key? key,
     required this.onHover,
     required this.onDoubleTap,
     required this.name,
     required this.border,
+    required this.showBadge,
   }) : super(key: key);
 
   @override
@@ -37,18 +40,30 @@ class ClientGridItem extends StatelessWidget {
             children: [
               Expanded(
                 flex: 6,
-                child: Container(
-                  // width: 72,
-                  // height: 46,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
+                child: Badge(
+                  badgeContent: Icon(
+                    Icons.play_arrow,
+                    color: Constants.primaryTextColor,
+                    size: 30,
                   ),
-                  child: Image.asset(
-                    'assets/icons/clouds.jpg',
-                    fit: BoxFit.fill,
+                  badgeColor: Colors.transparent,
+                  elevation: 0.0,
+                  position: const BadgePosition(
+                    bottom: 0,
+                    end: 0,
+                  ),
+                  showBadge: showBadge,
+                  child: Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/clouds.jpg',
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),

@@ -30,237 +30,278 @@ class CustomSheet {
       builder: (BuildContext context) {
         return SizedBox(
           height: SizeConfig.screenHeight,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Image.asset('assets/icons/tv.png'),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: TitleText(
-                            text: title,
-                            textColor: Constants.primaryColor,
-                            weight: FontWeight.bold,
-                            fontSize: Constants.headingSize1,
-                          ),
-                        ),
-                        const Expanded(
-                          flex: 3,
-                          child: SizedBox(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      width: SizeConfig.screenWidth,
-                      decoration: BoxDecoration(
-                        color: Constants.backgroundColor,
-                        border: Border.all(
-                          color: Constants.primaryTextColor,
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          width: SizeConfig.screenWidth,
+          child: Container(
+            margin: const EdgeInsets.only(
+              left: 5,
+              right: 5,
+            ),
+            height: SizeConfig.screenHeight,
+            width: SizeConfig.screenWidth * 0.95,
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              child: TitleText(
-                                text: subtitle,
-                                fontSize: Constants.headingSize,
-                                textColor: Constants.primaryTextColor,
-                                weight: FontWeight.bold,
-                              ),
+                            flex: 1,
+                            child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Image.asset('assets/icons/tv.png'),
                             ),
                           ),
                           Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                bottom: 10,
-                              ),
-                              alignment: Alignment.centerLeft,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children:
-                                    List.generate(subtitleIconsLength, (index) {
-                                  return Container(
-                                    margin: const EdgeInsets.only(
-                                      left: 20,
-                                      right: 20,
-                                    ),
-                                    width: 48,
-                                    height: 48,
-                                    child: Image.asset(
-                                      Constants.icons[index],
-                                      color: Constants.primaryTextColor,
-                                    ),
-                                  );
-                                }),
-                              ),
+                            flex: 6,
+                            child: TitleText(
+                              text: title,
+                              textColor: Constants.primaryColor,
+                              weight: FontWeight.bold,
+                              fontSize: Constants.headingSize1,
                             ),
+                          ),
+                          const Expanded(
+                            flex: 3,
+                            child: SizedBox(),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 14,
-                    child: CustomAnimation(
-                      shadowSpreadRadius: 1,
-                      controller: controller,
-                      shadowType: ShadowType.light,
-                      singleShadowWidth: 0.004,
-                      child: ListView.builder(
-                        itemCount: 30,
-                        controller: controller.scrollController,
-                        itemBuilder: (BuildContext context, int index) {
-                          return SizedBox(
-                            width: SizeConfig.screenWidth,
-                            height: SizeConfig.screenHeight * 0.08,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: Container(
-                                    margin: const EdgeInsets.only(left: 20),
-                                    child: TitleText(
-                                      text: isMusic
-                                          ? Constants.calls[
-                                              index % Constants.calls.length]
-                                          : Constants.names[
-                                              index % Constants.names.length],
-                                      fontSize: Constants.headingSize2,
-                                      textColor: Constants.primaryTextColor,
-                                    ),
-                                  ),
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        width: SizeConfig.screenWidth,
+                        decoration: BoxDecoration(
+                          color: Constants.backgroundColor,
+                          border: Border.all(
+                            color: Constants.primaryTextColor,
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                child: TitleText(
+                                  text: subtitle,
+                                  fontSize: Constants.headingSize,
+                                  textColor: Constants.primaryTextColor,
+                                  weight: FontWeight.bold,
                                 ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Countdown(
-                                    seconds: 10 * index,
-                                    build: (BuildContext context, double time) {
-                                      int minutes = time ~/ 60;
-                                      int seconds = (time % 60).toInt();
-                                      return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          TitleText(
-                                            text: minutes.toString().padLeft(
-                                                  2,
-                                                  '0',
-                                                ),
-                                            fontSize: Constants.headingSize2,
-                                            fontFamily: 'Digital7',
-                                            textColor:
-                                                Constants.primaryTextColor,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          TitleText(
-                                            text:
-                                                ':${seconds.toString().padLeft(
-                                                      2,
-                                                      '0',
-                                                    )}',
-                                            fontSize: Constants.headingSize2,
-                                            fontFamily: 'Digital7',
-                                            textColor:
-                                                Constants.primaryTextColor,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-                                if (!isMusic)
-                                  Expanded(
-                                    flex: 1,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: SizedBox(
-                                        width: 21,
-                                        height: 24,
-                                        child: Image.asset(
-                                            'assets/icons/reload.png'),
-                                      ),
-                                    ),
-                                  ),
-                                if (!isMusic)
-                                  Expanded(
-                                    flex: 1,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: SizedBox(
-                                        width: 21,
-                                        height: 24,
-                                        child: Image.asset(
-                                            'assets/icons/cancel.png'),
-                                      ),
-                                    ),
-                                  ),
-                              ],
+                              ),
                             ),
-                          );
-                        },
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                  bottom: 10,
+                                ),
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: List.generate(subtitleIconsLength,
+                                      (index) {
+                                    return Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                      ),
+                                      width: 48,
+                                      height: 48,
+                                      child: Image.asset(
+                                        Constants.icons[index],
+                                        color: Constants.primaryTextColor,
+                                      ),
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  BottomBar(
-                    text: bottomText,
-                    iconAsset: 'assets/icons/down_arrow.png',
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-              Positioned(
-                right: 20,
-                child: Container(
-                  width: 132,
-                  height: 67,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      left: BorderSide(
-                        color: Constants.primaryTextColor,
-                      ),
-                      right: BorderSide(
-                        color: Constants.primaryTextColor,
-                      ),
-                      bottom: BorderSide(
-                        color: Constants.primaryTextColor,
+                    Expanded(
+                      flex: 14,
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          left: 5,
+                          right: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Constants.borderColor,
+                          ),
+                        ),
+                        child: CustomAnimation(
+                          shadowSpreadRadius: 1,
+                          controller: controller,
+                          shadowType: ShadowType.light,
+                          singleShadowWidth: 0.004,
+                          child: RawScrollbar(
+                            thumbColor: Constants.scrollBarColor,
+                            thickness: 10,
+                            radius: const Radius.circular(
+                              15,
+                            ),
+                            child: ScrollConfiguration(
+                              behavior: ScrollConfiguration.of(context)
+                                  .copyWith(scrollbars: false),
+                              child: ListView.builder(
+                                itemCount: 30,
+                                controller: controller.scrollController,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SizedBox(
+                                    width: SizeConfig.screenWidth,
+                                    height: SizeConfig.screenHeight * 0.08,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 4,
+                                          child: Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 20),
+                                            child: TitleText(
+                                              text: isMusic
+                                                  ? Constants.calls[index %
+                                                      Constants.calls.length]
+                                                  : Constants.names[index %
+                                                      Constants.names.length],
+                                              fontSize: Constants.headingSize2,
+                                              textColor:
+                                                  Constants.primaryTextColor,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Countdown(
+                                            seconds: 10 * index,
+                                            build: (BuildContext context,
+                                                double time) {
+                                              int minutes = time ~/ 60;
+                                              int seconds = (time % 60).toInt();
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  TitleText(
+                                                    text: minutes
+                                                        .toString()
+                                                        .padLeft(
+                                                          2,
+                                                          '0',
+                                                        ),
+                                                    fontSize:
+                                                        Constants.headingSize2,
+                                                    fontFamily: 'Digital7',
+                                                    textColor: Constants
+                                                        .primaryTextColor,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  TitleText(
+                                                    text:
+                                                        ':${seconds.toString().padLeft(
+                                                              2,
+                                                              '0',
+                                                            )}',
+                                                    fontSize:
+                                                        Constants.headingSize2,
+                                                    fontFamily: 'Digital7',
+                                                    textColor: Constants
+                                                        .primaryTextColor,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        if (!isMusic)
+                                          Expanded(
+                                            flex: 1,
+                                            child: InkWell(
+                                              onTap: () {},
+                                              child: SizedBox(
+                                                width: 21,
+                                                height: 24,
+                                                child: Image.asset(
+                                                  index % 5 != 0
+                                                      ? 'assets/icons/reload.png'
+                                                      : 'assets/icons/next.png',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if (!isMusic)
+                                          Expanded(
+                                            flex: 1,
+                                            child: InkWell(
+                                              onTap: () {},
+                                              child: SizedBox(
+                                                width: 21,
+                                                height: 24,
+                                                child: Image.asset(
+                                                    'assets/icons/cancel.png'),
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    color: Colors.black,
-                  ),
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(
-                    3,
-                  ),
-                  child: TitleText(
-                    text: buttonText,
-                    textColor: Constants.primaryTextColor,
-                    textAlign: TextAlign.center,
-                    fontSize: Constants.bottomBarText,
+                    BottomBar(
+                      text: bottomText,
+                      iconAsset: 'assets/icons/down_arrow.png',
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+                Positioned(
+                  right: 20,
+                  child: Container(
+                    width: 132,
+                    height: 67,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                          color: Constants.primaryTextColor,
+                        ),
+                        right: BorderSide(
+                          color: Constants.primaryTextColor,
+                        ),
+                        bottom: BorderSide(
+                          color: Constants.primaryTextColor,
+                        ),
+                      ),
+                      color: Colors.black,
+                    ),
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(
+                      3,
+                    ),
+                    child: TitleText(
+                      text: buttonText,
+                      textColor: Constants.primaryTextColor,
+                      textAlign: TextAlign.center,
+                      fontSize: Constants.bottomBarText,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
