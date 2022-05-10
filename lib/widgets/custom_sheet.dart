@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
+import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 import 'package:get/get.dart';
@@ -25,10 +26,10 @@ class CustomSheet {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: Colors.black.withOpacity(0.8),
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: SizeConfig.screenHeight,
-          color: Colors.black,
           child: Stack(
             children: [
               Column(
@@ -39,10 +40,10 @@ class CustomSheet {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: Icon(
-                            titleIcon,
-                            color: Constants.primaryTextColor,
-                            size: Constants.iconSize2,
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: Image.asset('assets/icons/tv.png'),
                           ),
                         ),
                         Expanded(
@@ -101,12 +102,11 @@ class CustomSheet {
                                       left: 20,
                                       right: 20,
                                     ),
-                                    child: ImageIcon(
-                                      AssetImage(
-                                        Constants.icons[index],
-                                      ),
+                                    width: 48,
+                                    height: 48,
+                                    child: Image.asset(
+                                      Constants.icons[index],
                                       color: Constants.primaryTextColor,
-                                      size: Constants.iconSize,
                                     ),
                                   );
                                 }),
@@ -143,13 +143,13 @@ class CustomSheet {
                                               index % Constants.calls.length]
                                           : Constants.names[
                                               index % Constants.names.length],
-                                      fontSize: Constants.headingSize2 + 5,
+                                      fontSize: Constants.headingSize2,
                                       textColor: Constants.primaryTextColor,
                                     ),
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 4,
+                                  flex: 3,
                                   child: Countdown(
                                     seconds: 10 * index,
                                     build: (BuildContext context, double time) {
@@ -164,7 +164,7 @@ class CustomSheet {
                                                   2,
                                                   '0',
                                                 ),
-                                            fontSize: Constants.headingSize,
+                                            fontSize: Constants.headingSize2,
                                             fontFamily: 'Digital7',
                                             textColor:
                                                 Constants.primaryTextColor,
@@ -172,8 +172,11 @@ class CustomSheet {
                                           ),
                                           TitleText(
                                             text:
-                                                ' : ${seconds.toString().padLeft(2, '0')}',
-                                            fontSize: Constants.headingSize,
+                                                ':${seconds.toString().padLeft(
+                                                      2,
+                                                      '0',
+                                                    )}',
+                                            fontSize: Constants.headingSize2,
                                             fontFamily: 'Digital7',
                                             textColor:
                                                 Constants.primaryTextColor,
@@ -187,25 +190,27 @@ class CustomSheet {
                                 if (!isMusic)
                                   Expanded(
                                     flex: 1,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        CupertinoIcons.refresh_bold,
-                                        color: Constants.primaryTextColor,
-                                        size: Constants.iconSize1,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: SizedBox(
+                                        width: 21,
+                                        height: 24,
+                                        child: Image.asset(
+                                            'assets/icons/reload.png'),
                                       ),
-                                      onPressed: () {},
                                     ),
                                   ),
                                 if (!isMusic)
                                   Expanded(
                                     flex: 1,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        CupertinoIcons.clear,
-                                        color: Colors.red,
-                                        size: Constants.iconSize1,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: SizedBox(
+                                        width: 21,
+                                        height: 24,
+                                        child: Image.asset(
+                                            'assets/icons/cancel.png'),
                                       ),
-                                      onPressed: () {},
                                     ),
                                   ),
                               ],
@@ -215,54 +220,20 @@ class CustomSheet {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            color: Constants.primaryTextColor,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 8,
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              child: TitleText(
-                                text: bottomText,
-                                textColor: Constants.primaryTextColor,
-                                fontSize: Constants.headingSize1,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Constants.primaryTextColor,
-                                size: Constants.iconSize2,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  BottomBar(
+                    text: bottomText,
+                    iconAsset: 'assets/icons/down_arrow.png',
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ],
               ),
               Positioned(
                 right: 20,
                 child: Container(
-                  width: SizeConfig.screenWidth * 0.4,
-                  height: Constants.mainButtonSize,
+                  width: 132,
+                  height: 67,
                   decoration: BoxDecoration(
                     border: Border(
                       left: BorderSide(
@@ -285,7 +256,7 @@ class CustomSheet {
                     text: buttonText,
                     textColor: Constants.primaryTextColor,
                     textAlign: TextAlign.center,
-                    fontSize: Constants.headingSize,
+                    fontSize: Constants.bottomBarText,
                   ),
                 ),
               ),

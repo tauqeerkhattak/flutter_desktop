@@ -23,6 +23,8 @@ class ClientGridItem extends StatelessWidget {
       child: GestureDetector(
         onDoubleTap: onDoubleTap,
         child: Container(
+          width: 94,
+          height: 137,
           decoration: BoxDecoration(
             border: border,
             borderRadius: BorderRadius.circular(
@@ -36,6 +38,8 @@ class ClientGridItem extends StatelessWidget {
               Expanded(
                 flex: 6,
                 child: Container(
+                  // width: 72,
+                  // height: 46,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
@@ -48,6 +52,9 @@ class ClientGridItem extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               Expanded(
                 flex: 4,
                 child: Center(
@@ -55,7 +62,7 @@ class ClientGridItem extends StatelessWidget {
                     text: name,
                     textColor: Constants.primaryTextColor,
                     textAlign: TextAlign.center,
-                    fontSize: Constants.headingSize1,
+                    fontSize: Constants.homeItemTextSize,
                   ),
                 ),
               ),

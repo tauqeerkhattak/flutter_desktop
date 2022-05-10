@@ -41,6 +41,7 @@ dependencies:
   stop_watch_timer: ^1.4.0
   bitsdojo_window: ^0.1.1+1
   timer_count_down: ^2.2.1
+  google_fonts: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -84,10 +85,13 @@ flutter:
   fonts:
     - family: Digital7
       fonts:
-        - asset: assets/fonts/digital-7/digital-7.ttf
+        - asset: assets/fonts/digital-7/DigitalNumbers-Regular.ttf
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Black.ttf
+          weight: 800
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+          weight: 500
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

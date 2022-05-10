@@ -13,9 +13,15 @@ class Constants {
   static Color backgroundColor = Colors.grey.shade800;
   static Color dark = Color(0xff313131);
 
-  static double headingSize = SizeConfig.screenHeight * 0.04;
-  static double headingSize1 = SizeConfig.screenHeight * 0.03;
-  static double headingSize2 = SizeConfig.screenHeight * 0.02;
+  // static double headingSize = SizeConfig.screenHeight * 0.04;
+  static double headingSize = 36;
+  // static double headingSize1 = SizeConfig.screenHeight * 0.03;
+  static double headingSize1 = 24;
+  // static double headingSize2 = SizeConfig.screenHeight * 0.02;
+  static double headingSize2 = 16;
+  static double homeItemTextSize = 14;
+  static double bottomBarHeight = 44;
+  static double bottomBarText = 25;
   static double iconSize = SizeConfig.screenHeight * 0.09;
   static double iconSize1 = SizeConfig.screenHeight * 0.06;
   static double iconSize2 = SizeConfig.screenHeight * 0.04;

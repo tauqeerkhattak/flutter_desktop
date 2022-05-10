@@ -6,6 +6,7 @@ import 'package:flutter_desktop/controllers/home_controller.dart';
 import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
+import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_animation.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/custom_sheet.dart';
@@ -69,7 +70,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-            flex: 16,
+            flex: 17,
             child: Stack(
               children: [
                 SizedBox(
@@ -121,66 +122,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ],
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              width: SizeConfig.screenWidth,
-              height: double.maxFinite,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border(
-                  top: BorderSide(
-                    color: Constants.primaryTextColor,
-                  ),
-                ),
-              ),
-              child: InkWell(
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                          left: 10,
-                        ),
-                        child: TitleText(
-                          text: 'Finnish Shoot',
-                          fontSize: Constants.headingSize - 1,
-                          textAlign: TextAlign.left,
-                          textColor: Constants.primaryTextColor,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: Icon(
-                          Icons.keyboard_arrow_up,
-                          color: Constants.primaryTextColor,
-                          size: Constants.iconSize1,
-                        ),
-                        onPressed: () {
-                          final sheetController =
-                              Get.put(BottomSheetController());
-                          CustomSheet.showBottomSheet(
-                            isMusic: false,
-                            context: context,
-                            controller: sheetController,
-                            buttonText: 'Clear All',
-                            title: 'THE SERVER',
-                            titleIcon: Icons.tv,
-                            subtitle: 'EFFECTS',
-                            subtitleIconsLength: 3,
-                            bottomText: 'Playing "5" Effect',
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          BottomBar(
+            text: 'Finnish Shoot',
+            iconAsset: 'assets/icons/up_arrow.png',
+            onTap: () {
+              final sheetController = Get.put(BottomSheetController());
+              CustomSheet.showBottomSheet(
+                isMusic: false,
+                context: context,
+                controller: sheetController,
+                buttonText: 'Clear All',
+                title: 'THE SERVER',
+                titleIcon: Icons.tv,
+                subtitle: 'EFFECTS',
+                subtitleIconsLength: 3,
+                bottomText: 'Playing "5" Effect',
+              );
+            },
           ),
         ],
       ),
