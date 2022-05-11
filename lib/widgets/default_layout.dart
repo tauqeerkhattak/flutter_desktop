@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_desktop/utils/constants.dart';
+import 'package:flutter_desktop/utils/size_config.dart';
+import 'package:flutter_desktop/widgets/title_text.dart';
+
+class DefaultLayout extends StatelessWidget {
+  final String title;
+  final Widget child;
+  final String? buttonText;
+  const DefaultLayout({
+    Key? key,
+    required this.title,
+    required this.child,
+    this.buttonText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        child,
+        Positioned(
+          left: 10,
+          top: SizeConfig.screenHeight * 0.05,
+          child: Row(
+            children: [
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.arrow_back,
+              //     color: Constants.primaryTextColor,
+              //     size: Constants.iconSize2,
+              //   ),
+              //   onPressed: () {
+              //     Navigator.pop(context);
+              //   },
+              // ),
+              const SizedBox(
+                width: 10,
+              ),
+              TitleText(
+                text: title,
+                fontSize: Constants.headingSize,
+                weight: FontWeight.bold,
+                textColor: Constants.primaryTextColor,
+              ),
+            ],
+          ),
+        ),
+        if (buttonText != null)
+          Positioned(
+            right: 20,
+            child: Container(
+              width: 132,
+              height: 67,
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: Constants.primaryTextColor,
+                  ),
+                  right: BorderSide(
+                    color: Constants.primaryTextColor,
+                  ),
+                  bottom: BorderSide(
+                    color: Constants.primaryTextColor,
+                  ),
+                ),
+                color: Colors.black,
+              ),
+              alignment: Alignment.center,
+              child: TitleText(
+                text: buttonText,
+                lineHeight: 1,
+                textColor: Constants.primaryTextColor,
+                textAlign: TextAlign.center,
+                fontSize: Constants.headingSize1,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}

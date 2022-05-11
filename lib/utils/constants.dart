@@ -8,7 +8,7 @@ import 'package:flutter_desktop/utils/size_config.dart';
 
 class Constants {
   static Color primaryColor = Color(0xff66CEDB);
-  static Color primaryTextColor = Colors.white;
+  static Color primaryTextColor = Color(0xffE5E5E5);
   static Color secondaryColor = Colors.grey;
   static Color backgroundColor = Colors.grey.shade800;
   static Color scrollBarColor = Color(0xff707070);

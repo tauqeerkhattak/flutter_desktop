@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
-import 'package:flutter_desktop/controllers/home_controller.dart';
+import 'package:flutter_desktop/controllers/effects_controller.dart';
 import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
@@ -14,15 +14,15 @@ import 'package:flutter_desktop/widgets/home_grid_item.dart';
 import 'package:flutter_desktop/widgets/top_bar.dart';
 import 'package:get/get.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Effect extends StatefulWidget {
+  const Effect({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Effect> createState() => _EffectState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
-  final controller = Get.put(HomeController());
+class _EffectState extends State<Effect> with TickerProviderStateMixin {
+  final controller = Get.put(EffectsController());
   bool hasScrolled = false;
 
   @override
@@ -31,14 +31,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
-        title: 'STEPS',
+        title: 'EFFECTS',
+        buttonText: 'Clear All',
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               flex: 1,
               child: TopBar(
-                color: Constants.dark,
+                icon: 'assets/icons/next.png',
+                receiverName: 'SWETNESS',
               ),
             ),
             Expanded(

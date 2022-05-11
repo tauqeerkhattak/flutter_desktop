@@ -3,13 +3,13 @@ import 'package:flutter_desktop/models/list.dart';
 import 'package:flutter_desktop/models/status_menu_item.dart';
 
 class Receiver extends Client {
-  bool? ghost = false;
+  bool? ghost;
   $List? owner;
   String? status;
   List<StatusMenuItem>? statusMenuItems;
 
   Receiver({
-    this.ghost,
+    this.ghost = false,
     this.owner,
     this.status,
     this.statusMenuItems,
