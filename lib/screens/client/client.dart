@@ -8,6 +8,7 @@ import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/client_grid_item.dart';
 import 'package:flutter_desktop/widgets/custom_animation.dart';
+import 'package:flutter_desktop/widgets/custom_scroll_bar.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/custom_sheet.dart';
 import 'package:flutter_desktop/widgets/default_layout.dart';
@@ -42,67 +43,52 @@ class Client extends StatelessWidget {
                 child: BorderBox(
                   backgroundColor: Constants.backgroundColor,
                   child: CustomAnimation(
-                    singleShadowWidth: 0.009,
-                    shadowSpreadRadius: 4,
                     controller: controller,
                     shadowType: ShadowType.dark,
-                    child: RawScrollbar(
-                      thumbColor: Colors.black,
-                      thickness: 10,
-                      radius: const Radius.circular(
-                        15,
-                      ),
-                      child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio:
-                                controller.itemHeight / controller.itemWidth,
-                          ),
-                          itemCount: controller.itemsCount,
-                          controller: controller.scrollController,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ClientGridItem(
-                              showBadge: index % 5 == 0,
-                              onDoubleTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return Effect();
-                                    },
-                                  ),
-                                );
-                              },
-                              name: 'Name of the media $index',
-                            );
-                          },
+                    child: CustomScrollBar(
+                      color: Colors.black,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio:
+                              controller.itemHeight / controller.itemWidth,
                         ),
+                        itemCount: controller.itemsCount,
+                        controller: controller.scrollController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ClientGridItem(
+                            showBadge: index % 5 == 0,
+                            onDoubleTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const Effect();
+                                  },
+                                ),
+                              );
+                            },
+                            name: 'Name of the media $index',
+                          );
+                        },
                       ),
                     ),
                   ),
                 ),
               ),
               BottomBar(
-                  text: 'Playing video...',
-                  iconAsset: 'assets/icons/up_arrow.png',
-                  onTap: () {
-                    final sheetController = Get.put(BottomSheetController());
-                    CustomSheet.showBottomSheet(
-                      isMusic: true,
-                      context: context,
-                      controller: sheetController,
-                      buttonText: 'Call',
-                      title: 'SWETNESS',
-                      titleIcon: Icons.tv,
-                      subtitle: 'RINGS',
-                      subtitleIconsLength: 1,
-                      bottomText: 'Ringing... 3/8',
-                    );
-                  }),
+                text: 'Playing video...',
+                iconAsset: 'assets/icons/up_arrow.png',
+                onTap: () {
+                  final sheetController = Get.put(BottomSheetController());
+                  CustomSheet.showBottomSheet(
+                    isMusic: true,
+                    context: context,
+                    controller: sheetController,
+                    bottomText: 'Ringing... 3/8',
+                  );
+                },
+              ),
             ],
           ),
         ),

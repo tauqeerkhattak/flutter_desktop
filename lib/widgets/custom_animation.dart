@@ -4,9 +4,7 @@ import 'package:flutter_desktop/widgets/custom_shadow.dart';
 
 class CustomAnimation extends StatefulWidget {
   final Widget child;
-  final double shadowSpreadRadius;
   final controller;
-  final double singleShadowWidth;
   final ShadowType shadowType;
 
   const CustomAnimation({
@@ -14,8 +12,6 @@ class CustomAnimation extends StatefulWidget {
     required this.child,
     required this.controller,
     required this.shadowType,
-    required this.singleShadowWidth,
-    required this.shadowSpreadRadius,
   }) : super(key: key);
 
   @override
@@ -68,7 +64,6 @@ class _CustomAnimationState extends State<CustomAnimation>
             hasUserScrolled = true;
           });
         }
-        print(notification.direction);
         widget.controller.cWidth.value =
             widget.controller.scrollController.offset /
                 widget.controller.scrollController.position.maxScrollExtent;
@@ -95,10 +90,8 @@ class _CustomAnimationState extends State<CustomAnimation>
                     child: FadeTransition(
                       opacity: topAnimation,
                       child: CustomShadow(
-                        spreadRadius: widget.shadowSpreadRadius,
                         direction: VerticalDirection.down,
                         shadowType: widget.shadowType,
-                        width: widget.singleShadowWidth,
                       ),
                     ),
                   ),
@@ -111,10 +104,8 @@ class _CustomAnimationState extends State<CustomAnimation>
               child: FadeTransition(
                 opacity: bottomAnimation,
                 child: CustomShadow(
-                  spreadRadius: widget.shadowSpreadRadius,
                   direction: VerticalDirection.up,
                   shadowType: widget.shadowType,
-                  width: widget.singleShadowWidth,
                 ),
               ),
             ),

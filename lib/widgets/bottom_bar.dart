@@ -33,7 +33,7 @@ class BottomBar extends StatelessWidget {
             flex: 8,
             child: Container(
               margin: const EdgeInsets.only(
-                left: 10,
+                left: 20,
               ),
               child: TitleText(
                 text: text,

@@ -20,7 +20,7 @@ class DefaultLayout extends StatelessWidget {
       children: [
         child,
         Positioned(
-          left: 10,
+          left: 15,
           top: SizeConfig.screenHeight * 0.05,
           child: Row(
             children: [
@@ -37,11 +37,16 @@ class DefaultLayout extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              TitleText(
-                text: title,
-                fontSize: Constants.headingSize,
-                weight: FontWeight.bold,
-                textColor: Constants.primaryTextColor,
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 12,
+                ),
+                child: TitleText(
+                  text: title,
+                  fontSize: Constants.headingSize,
+                  weight: FontWeight.bold,
+                  textColor: Constants.primaryTextColor,
+                ),
               ),
             ],
           ),

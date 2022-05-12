@@ -26,7 +26,7 @@ class TitleText extends StatelessWidget {
     return Text(
       text!,
       textAlign: textAlign,
-      style: fontFamily == 'Roboto'
+      style: fontFamily == null
           ? GoogleFonts.roboto(
               fontSize: fontSize?.toDouble(),
               fontWeight: weight,
@@ -34,11 +34,11 @@ class TitleText extends StatelessWidget {
               height: lineHeight,
             )
           : TextStyle(
-              height: lineHeight,
-              fontFamily: fontFamily,
               fontSize: fontSize?.toDouble(),
               fontWeight: weight,
               color: textColor,
+              height: lineHeight,
+              fontFamily: fontFamily,
             ),
     );
   }

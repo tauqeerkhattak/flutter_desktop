@@ -52,7 +52,6 @@ class TopBar extends StatelessWidget {
             TitleText(
               text: receiverName,
               textColor: Constants.primaryColor,
-              // lineHeight: 1.1,
               weight: FontWeight.bold,
               fontSize: Constants.headingSize1 - 9,
             ),

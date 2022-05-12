@@ -7,6 +7,7 @@ import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_animation.dart';
+import 'package:flutter_desktop/widgets/custom_scroll_bar.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/custom_sheet.dart';
 import 'package:flutter_desktop/widgets/default_layout.dart';
@@ -36,7 +37,7 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
+            const Expanded(
               flex: 1,
               child: TopBar(
                 icon: 'assets/icons/next.png',
@@ -48,45 +49,36 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
               child: BorderBox(
                 backgroundColor: Constants.backgroundColor,
                 child: CustomAnimation(
-                  shadowSpreadRadius: 4,
-                  singleShadowWidth: 0.009,
                   controller: controller,
                   shadowType: ShadowType.dark,
-                  child: RawScrollbar(
-                    thumbColor: Constants.scrollBarColor,
-                    thickness: 8,
-                    radius: const Radius.circular(
-                      15,
-                    ),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio:
-                              controller.itemHeight / controller.itemWidth,
-                        ),
-                        controller: controller.scrollController,
-                        itemCount: controller.itemsCount,
-                        itemBuilder: (BuildContext context, int index) {
-                          return HomeGridItem(
-                            onDoubleTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return Client();
-                                  },
-                                ),
-                              );
-                            },
-                            name: 'Name of the Action $index',
-                            icon: Constants.icons[index % 4],
-                            enabled: index == 11 ? false : true,
-                          );
-                        },
+                  child: CustomScrollBar(
+                    color: Constants.scrollBarColor,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio:
+                            controller.itemHeight / controller.itemWidth,
                       ),
+                      controller: controller.scrollController,
+                      itemCount: controller.itemsCount,
+                      padding: const EdgeInsets.only(top: 65),
+                      itemBuilder: (BuildContext context, int index) {
+                        return HomeGridItem(
+                          onDoubleTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return Client();
+                                },
+                              ),
+                            );
+                          },
+                          name: 'Name of the Action $index',
+                          icon: Constants.icons[index % 4],
+                          enabled: index == 11 ? false : true,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -101,11 +93,6 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                   isMusic: false,
                   context: context,
                   controller: sheetController,
-                  buttonText: 'Clear All',
-                  title: 'THE SERVER',
-                  titleIcon: Icons.tv,
-                  subtitle: 'EFFECTS',
-                  subtitleIconsLength: 3,
                   bottomText: 'Playing "5" Effect',
                 );
               },

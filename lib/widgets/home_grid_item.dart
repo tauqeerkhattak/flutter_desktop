@@ -21,35 +21,24 @@ class HomeGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: enabled ? onDoubleTap : null,
-      child: Container(
-        margin: const EdgeInsets.all(
-          10,
-        ),
-        padding: const EdgeInsets.all(2.0),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 7,
-              child: SizedBox(
-                height: 32.7,
-                width: 48,
-                child: Image.asset(
-                  icon,
-                  color: enabled ? Colors.white : Colors.grey,
-                ),
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            height: 48,
+            width: 48,
+            child: Image.asset(
+              icon,
+              color: enabled ? Colors.white : Colors.grey,
             ),
-            Expanded(
-              flex: 4,
-              child: TitleText(
-                text: name,
-                fontSize: Constants.homeItemTextSize,
-                textColor: enabled ? Constants.primaryTextColor : Colors.grey,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
+          ),
+          TitleText(
+            text: name,
+            fontSize: Constants.homeItemTextSize,
+            textColor: enabled ? Constants.primaryTextColor : Colors.grey,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
