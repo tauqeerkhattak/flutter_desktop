@@ -24,16 +24,16 @@ class DefaultLayout extends StatelessWidget {
           top: SizeConfig.screenHeight * 0.05,
           child: Row(
             children: [
-              // IconButton(
-              //   icon: Icon(
-              //     Icons.arrow_back,
-              //     color: Constants.primaryTextColor,
-              //     size: Constants.iconSize2,
-              //   ),
-              //   onPressed: () {
-              //     Navigator.pop(context);
-              //   },
-              // ),
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Constants.primaryTextColor,
+                  size: Constants.iconSize2,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
               const SizedBox(
                 width: 10,
               ),
