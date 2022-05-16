@@ -32,11 +32,17 @@ class HomeGridItem extends StatelessWidget {
               color: enabled ? Colors.white : Colors.grey,
             ),
           ),
-          TitleText(
-            text: name,
-            fontSize: Constants.homeItemTextSize,
-            textColor: enabled ? Constants.primaryTextColor : Colors.grey,
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 18,
+              right: 18,
+            ),
+            child: TitleText(
+              text: name,
+              fontSize: Constants.homeItemTextSize,
+              textColor: enabled ? Constants.primaryTextColor : Colors.grey,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),

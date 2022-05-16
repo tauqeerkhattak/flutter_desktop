@@ -427,7 +427,41 @@ class $List {
     log('Not found');
   }
 
-  void selectReceiver1(Receiver receiver) {}
+  void selectReceiver1(Receiver receiver) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      Receiver temp = keys[i];
+      if (temp.name == receiver.name) {
+        currentReceiver!.name = temp.name;
+        currentReceiver!.icon = temp.icon;
+        currentReceiver!.statusMenuItems = temp.statusMenuItems;
+        break;
+      }
+    }
+    log('Not found');
+  }
+
+  String? getStatus(String receiverName) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      Receiver receiver = keys[i];
+      if (receiver.name == receiverName) {
+        return receiver.status;
+      }
+    }
+    return null;
+  }
+
+  String? getStatus1(Receiver receiver) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      Receiver temp = keys[i];
+      if (receiver.name == temp.name) {
+        return temp.status;
+      }
+    }
+    return null;
+  }
 
   void log(String s) {}
 }

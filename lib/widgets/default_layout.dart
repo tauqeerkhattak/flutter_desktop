@@ -60,13 +60,13 @@ class DefaultLayout extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   left: BorderSide(
-                    color: Constants.primaryTextColor,
+                    color: Constants.borderColor,
                   ),
                   right: BorderSide(
-                    color: Constants.primaryTextColor,
+                    color: Constants.borderColor,
                   ),
                   bottom: BorderSide(
-                    color: Constants.primaryTextColor,
+                    color: Constants.borderColor,
                   ),
                 ),
                 color: Colors.black,

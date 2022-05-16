@@ -23,7 +23,7 @@ class BottomBar extends StatelessWidget {
         color: Colors.black,
         border: Border(
           top: BorderSide(
-            color: Constants.primaryTextColor,
+            color: Constants.borderColor,
           ),
         ),
       ),

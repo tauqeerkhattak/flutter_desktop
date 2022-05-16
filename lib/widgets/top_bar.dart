@@ -20,6 +20,7 @@ class TopBar extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             color: Constants.borderColor,
+            width: 1.0,
           ),
           left: BorderSide(
             color: Constants.borderColor,

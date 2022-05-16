@@ -18,7 +18,7 @@ class CustomScrollBar extends StatelessWidget {
         15,
       ),
       // timeToFade: Duration(seconds: 100),
-      crossAxisMargin: 10,
+      crossAxisMargin: 5,
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: child,

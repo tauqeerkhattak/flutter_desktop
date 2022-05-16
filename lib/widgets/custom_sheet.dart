@@ -22,7 +22,7 @@ class CustomSheet {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.black.withOpacity(0.8),
+      backgroundColor: Colors.black.withOpacity(0.9),
       barrierColor: Colors.transparent,
       builder: (BuildContext context) {
         return SizedBox(
@@ -98,6 +98,7 @@ class CustomSheet {
                                                         2,
                                                         '0',
                                                       )}',
+                                              weight: FontWeight.bold,
                                               fontSize: Constants.headingSize2,
                                               fontFamily: 'Digital7',
                                               textColor:
