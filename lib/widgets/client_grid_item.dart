@@ -7,11 +7,13 @@ class ClientGridItem extends StatelessWidget {
   final Function() onDoubleTap;
   final String name;
   final bool showBadge;
+  final bool hovered;
   const ClientGridItem({
     Key? key,
     required this.onDoubleTap,
     required this.name,
     required this.showBadge,
+    required this.hovered,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,12 @@ class ClientGridItem extends StatelessWidget {
         height: 137,
         padding: const EdgeInsets.all(3.0),
         margin: const EdgeInsets.all(5),
+        decoration: hovered
+            ? BoxDecoration(
+                color: Constants.backgroundColor.withRed(50),
+                borderRadius: BorderRadius.circular(15),
+              )
+            : null,
         child: Column(
           children: [
             Expanded(
@@ -39,17 +47,20 @@ class ClientGridItem extends StatelessWidget {
                     size: 30,
                   ),
                   badgeColor: Colors.transparent,
+                  toAnimate: false,
                   elevation: 0.0,
                   position: const BadgePosition(
-                    bottom: 0,
+                    bottom: 5,
                     end: 0,
                   ),
                   showBadge: showBadge,
                   child: Container(
-                    clipBehavior: Clip.hardEdge,
+                    width: 100,
+                    height: 75,
+                    clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                        10,
+                        15,
                       ),
                     ),
                     child: Image.asset(

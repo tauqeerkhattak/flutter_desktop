@@ -85,8 +85,8 @@ class CustomSheet {
                                                     2,
                                                     '0',
                                                   ),
-                                              weight: FontWeight.bold,
-                                              fontSize: Constants.headingSize2,
+                                              fontSize:
+                                                  Constants.headingSize2 + 5,
                                               fontFamily: 'Digital7',
                                               textColor:
                                                   Constants.primaryTextColor,
@@ -98,8 +98,8 @@ class CustomSheet {
                                                         2,
                                                         '0',
                                                       )}',
-                                              weight: FontWeight.bold,
-                                              fontSize: Constants.headingSize2,
+                                              fontSize:
+                                                  Constants.headingSize2 + 5,
                                               fontFamily: 'Digital7',
                                               textColor:
                                                   Constants.primaryTextColor,

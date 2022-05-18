@@ -43,7 +43,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
             ),
             Expanded(
-              flex: 17,
+              flex: 19,
               child: BorderBox(
                 backgroundColor: Constants.backgroundColor,
                 child: CustomAnimation(
@@ -60,25 +60,32 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       itemCount: controller.itemsCount,
                       padding: const EdgeInsets.only(top: 65),
                       itemBuilder: (BuildContext context, int index) {
-                        return SizedBox(
-                          width: 94,
-                          height: 137,
-                          child: HomeGridItem(
-                            onDoubleTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return Client();
+                        return Obx(() => MouseRegion(
+                              onHover: (hover) {
+                                controller.selectedIndex.value = index;
+                              },
+                              child: SizedBox(
+                                width: 94,
+                                height: 137,
+                                child: HomeGridItem(
+                                  onDoubleTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return Client();
+                                        },
+                                      ),
+                                    );
                                   },
+                                  hovered:
+                                      controller.selectedIndex.value == index,
+                                  name: 'Name of the Action $index',
+                                  icon: Constants.icons[index % 5],
+                                  enabled: index == 11 ? false : true,
                                 ),
-                              );
-                            },
-                            name: 'Name of the Action $index',
-                            icon: Constants.icons[index % 4],
-                            enabled: index == 11 ? false : true,
-                          ),
-                        );
+                              ),
+                            ));
                       },
                     ),
                   ),

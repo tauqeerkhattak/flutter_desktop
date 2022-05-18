@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
@@ -21,19 +23,19 @@ class DefaultLayout extends StatelessWidget {
         child,
         Positioned(
           left: 15,
-          top: SizeConfig.screenHeight * 0.05,
+          top: SizeConfig.screenHeight * 0.04,
           child: Row(
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Constants.primaryTextColor,
-                  size: Constants.iconSize2,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.arrow_back,
+              //     color: Constants.primaryTextColor,
+              //     size: Constants.iconSize2,
+              //   ),
+              //   onPressed: () {
+              //     Navigator.pop(context);
+              //   },
+              // ),
               const SizedBox(
                 width: 10,
               ),
@@ -53,31 +55,39 @@ class DefaultLayout extends StatelessWidget {
         ),
         if (buttonText != null)
           Positioned(
-            right: 20,
-            child: Container(
-              width: 132,
-              height: 67,
-              decoration: BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: Constants.borderColor,
+            right: 30,
+            child: Material(
+              color: Colors.black,
+              child: InkWell(
+                onTap: () {
+                  log('Main Button pressed');
+                },
+                child: Container(
+                  width: 132,
+                  height: 67,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                        color: Constants.borderColor,
+                      ),
+                      right: BorderSide(
+                        color: Constants.borderColor,
+                      ),
+                      bottom: BorderSide(
+                        color: Constants.borderColor,
+                      ),
+                    ),
+                    // color: Colors.black,
                   ),
-                  right: BorderSide(
-                    color: Constants.borderColor,
-                  ),
-                  bottom: BorderSide(
-                    color: Constants.borderColor,
+                  alignment: Alignment.center,
+                  child: TitleText(
+                    text: buttonText,
+                    lineHeight: 1,
+                    textColor: Constants.primaryTextColor,
+                    textAlign: TextAlign.center,
+                    fontSize: Constants.headingSize1,
                   ),
                 ),
-                color: Colors.black,
-              ),
-              alignment: Alignment.center,
-              child: TitleText(
-                text: buttonText,
-                lineHeight: 1,
-                textColor: Constants.primaryTextColor,
-                textAlign: TextAlign.center,
-                fontSize: Constants.headingSize1,
               ),
             ),
           ),

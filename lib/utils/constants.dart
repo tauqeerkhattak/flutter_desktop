@@ -12,7 +12,7 @@ class Constants {
   static Color secondaryColor = Colors.grey;
   static Color backgroundColor = Colors.grey.shade800;
   static Color scrollBarColor = Color(0xff707070);
-  static Color borderColor = Color(0xffC4C4C4);
+  static Color borderColor = Color(0xffc4c4c4);
   static Color dark = Color(0xff313131);
 
   // static double headingSize = SizeConfig.screenHeight * 0.04;
@@ -34,6 +34,7 @@ class Constants {
     'assets/icons/bin.png',
     'assets/icons/camcorder.png',
     'assets/icons/aim.png',
+    'assets/icons/double_arrow_down.png',
   ];
   static List<String> names = [
     'Stop now Dead',

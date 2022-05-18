@@ -27,7 +27,7 @@ class Client extends StatelessWidget {
         width: SizeConfig.screenWidth,
         height: SizeConfig.screenHeight,
         child: DefaultLayout(
-          title: 'Client',
+          title: 'Client'.toUpperCase(),
           buttonText: 'Send Message',
           child: Column(
             children: [
@@ -55,20 +55,30 @@ class Client extends StatelessWidget {
                         ),
                         itemCount: controller.itemsCount,
                         controller: controller.scrollController,
+                        padding: const EdgeInsets.only(top: 65),
                         itemBuilder: (BuildContext context, int index) {
-                          return ClientGridItem(
-                            showBadge: index % 5 == 0,
-                            onDoubleTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return const Effect();
-                                  },
-                                ),
-                              );
-                            },
-                            name: 'Name of the media $index',
+                          return Obx(
+                            () => MouseRegion(
+                              onHover: (hover) {
+                                controller.selectedIndex.value = index;
+                              },
+                              child: ClientGridItem(
+                                hovered:
+                                    controller.selectedIndex.value == index,
+                                showBadge: index % 5 == 0,
+                                onDoubleTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return const Effect();
+                                      },
+                                    ),
+                                  );
+                                },
+                                name: 'Name of the media $index',
+                              ),
+                            ),
                           );
                         },
                       ),
