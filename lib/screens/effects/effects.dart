@@ -63,27 +63,24 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                       itemCount: controller.itemsCount,
                       padding: const EdgeInsets.only(top: 65),
                       itemBuilder: (BuildContext context, int index) {
-                        return Obx(
-                          () => MouseRegion(
-                            onHover: (hover) {
-                              controller.selectedIndex.value = index;
+                        return MouseRegion(
+                          onHover: (hover) {
+                            controller.selectedIndex.value = index;
+                          },
+                          child: HomeGridItem(
+                            onDoubleTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return Client();
+                                  },
+                                ),
+                              );
                             },
-                            child: HomeGridItem(
-                              onDoubleTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return Client();
-                                    },
-                                  ),
-                                );
-                              },
-                              hovered: controller.selectedIndex.value == index,
-                              name: 'Name of the Action $index',
-                              icon: Constants.icons[index % 4],
-                              enabled: index == 11 ? false : true,
-                            ),
+                            name: 'Name of the Action $index',
+                            icon: Constants.icons[index % 4],
+                            enabled: index == 11 ? false : true,
                           ),
                         );
                       },

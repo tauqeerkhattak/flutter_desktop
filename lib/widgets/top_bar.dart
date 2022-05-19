@@ -59,7 +59,7 @@ class TopBar extends StatelessWidget {
                 text: receiverName,
                 textColor: Constants.primaryColor,
                 weight: FontWeight.bold,
-                fontSize: Constants.headingSize1,
+                fontSize: Constants.headingSize1 - 6,
               ),
           ],
         ),

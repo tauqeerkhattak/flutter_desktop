@@ -1,8 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_desktop/models/json_item.dart';
 import 'package:flutter_desktop/models/list_item.dart';
+import 'package:flutter_desktop/models/list_receiver.dart';
 import 'package:flutter_desktop/models/main_button.dart';
 import 'package:flutter_desktop/models/receiver.dart';
 import 'package:flutter_desktop/models/status_menu_item.dart';
+import 'package:flutter_desktop/models/temp_receiver.dart';
 
 class $List {
   IconData? icon;
@@ -13,6 +16,35 @@ class $List {
   List<ListItem>? forAllItemsList;
   Map<Receiver, List<ListItem>>? receiverListItems;
   Receiver? currentReceiver;
+
+  void add(JSONItem item) {
+    bool found = false;
+    if (item.for_ == null || item.for_!.isEmpty) {
+      ListItem listItem = ListItem();
+      forAllItemsList!.add(listItem);
+      final keys = receiverListItems!.keys.toList();
+      for (int i = 0; i < keys.length; i++) {
+        receiverListItems![keys[i]]!.add(listItem);
+      }
+    } else {
+      for (int i = 0; i < item.for_!.length; i++) {
+        ListItem listItem = ListItem();
+        final keys = receiverListItems!.keys.toList();
+        for (int j = 0; j < keys.length; j++) {
+          if (keys[j].name == listItem.receiver!.name) {
+            receiverListItems![keys[j]]!.add(listItem);
+            found = true;
+          }
+        }
+        if (!found) {
+          TempReceiver tempReceiver =
+              TempReceiver(name: listItem.receiver!.name!);
+          receiverListItems!.addAll({tempReceiver: forAllItemsList!});
+          receiverListItems!.putIfAbsent(tempReceiver, () => [listItem]);
+        }
+      }
+    }
+  }
 
   void remove(String name) {
     final keys = receiverListItems!.keys.toList();
@@ -132,7 +164,7 @@ class $List {
     for (int i = 0; i < forAllItemsList!.length; i++) {
       if (forAllItemsList![i].receiver!.name == name) {
         //TODO Check this for later
-        forAllItemsList!.removeAt(i);
+        forAllItemsList![i].disable = true;
       }
     }
   }
@@ -313,7 +345,7 @@ class $List {
       }
     }
     for (int i = 0; i < forAllItemsList!.length; i++) {
-      forAllItemsList!.removeAt(i);
+      forAllItemsList![i].hide = false;
     }
   }
 
@@ -403,15 +435,33 @@ class $List {
     }
   }
 
-  // void addReceiver(Receiver receiver) {
-  //   final keys = receiverListItems!.keys.toList();
-  //   for (int i = 0; i < keys.length; i++) {
-  //     final temp = keys[i];
-  //     if (temp.name == receiver.name && temp.runtimeType == TempReceiver) {
-  //       Receiver tempReceiver = Receiver();
-  //     }
-  //   }
-  // }
+  void addReceiver(Receiver receiver) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      final temp = keys[i];
+      if (temp.name == receiver.name && temp.runtimeType == TempReceiver) {
+        Receiver listReceiver = receiver;
+        if (listReceiver.status == 'new') {
+          receiverListItems!.putIfAbsent(listReceiver, () => forAllItemsList!);
+        } else {
+          receiverListItems!.putIfAbsent(listReceiver, () => []);
+        }
+      }
+    }
+  }
+
+  void removeReceiver(Receiver receiver) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].runtimeType == ListReceiver &&
+          receiver.name == keys[i].name) {
+        if (currentReceiver == receiver) {
+          currentReceiver = keys[i + 1];
+        }
+        receiverListItems!.remove(receiver);
+      }
+    }
+  }
 
   void selectReceiver(String receiverName) {
     final keys = receiverListItems!.keys.toList();

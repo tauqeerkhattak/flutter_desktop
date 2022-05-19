@@ -1,5 +1,6 @@
 import 'package:flutter_desktop/models/client.dart';
 import 'package:flutter_desktop/models/list.dart';
+import 'package:flutter_desktop/models/main_button_list.dart';
 import 'package:flutter_desktop/models/status_menu_item.dart';
 
 class Receiver extends Client {
@@ -7,13 +8,16 @@ class Receiver extends Client {
   $List? owner;
   String? status;
   List<StatusMenuItem>? statusMenuItems;
+  MainButtonList? button;
 
   Receiver({
     this.ghost = false,
     this.owner,
     this.status,
     this.statusMenuItems,
-  });
+    this.button,
+    String? name,
+  }) : super(name: name);
 
   void setOwner($List owner) {
     this.owner = owner;

@@ -57,27 +57,23 @@ class Client extends StatelessWidget {
                         controller: controller.scrollController,
                         padding: const EdgeInsets.only(top: 65),
                         itemBuilder: (BuildContext context, int index) {
-                          return Obx(
-                            () => MouseRegion(
-                              onHover: (hover) {
-                                controller.selectedIndex.value = index;
+                          return MouseRegion(
+                            onHover: (hover) {
+                              controller.selectedIndex.value = index;
+                            },
+                            child: ClientGridItem(
+                              showBadge: index % 5 == 0,
+                              onDoubleTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return const Effect();
+                                    },
+                                  ),
+                                );
                               },
-                              child: ClientGridItem(
-                                hovered:
-                                    controller.selectedIndex.value == index,
-                                showBadge: index % 5 == 0,
-                                onDoubleTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return const Effect();
-                                      },
-                                    ),
-                                  );
-                                },
-                                name: 'Name of the media $index',
-                              ),
+                              name: 'Name of the media $index',
                             ),
                           );
                         },

@@ -8,7 +8,6 @@ class HomeGridItem extends StatelessWidget {
   final String name;
   final String icon;
   final bool enabled;
-  final bool hovered;
 
   const HomeGridItem({
     Key? key,
@@ -16,20 +15,16 @@ class HomeGridItem extends StatelessWidget {
     required this.name,
     required this.icon,
     required this.enabled,
-    required this.hovered,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: enabled ? onDoubleTap : null,
-      child: Container(
-        decoration: hovered && enabled
-            ? BoxDecoration(
-                color: Constants.backgroundColor.withRed(50),
-                borderRadius: BorderRadius.circular(15),
-              )
-            : null,
+    return Material(
+      color: Colors.transparent,
+      type: MaterialType.transparency,
+      child: InkWell(
+        focusColor: Colors.yellowAccent,
+        onDoubleTap: enabled ? onDoubleTap : null,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -43,8 +38,8 @@ class HomeGridItem extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 18,
-                right: 18,
+                left: 13,
+                right: 13,
               ),
               child: TitleText(
                 text: name,

@@ -5,11 +5,12 @@ import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 
-class DefaultLayout extends StatelessWidget {
+class DefaultLayout extends StatefulWidget {
   final String title;
   final Widget child;
   final String? buttonText;
-  const DefaultLayout({
+
+  DefaultLayout({
     Key? key,
     required this.title,
     required this.child,
@@ -17,10 +18,17 @@ class DefaultLayout extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DefaultLayout> createState() => _DefaultLayoutState();
+}
+
+class _DefaultLayoutState extends State<DefaultLayout> {
+  Color backgroundColor = Colors.black;
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        child,
+        widget.child,
         Positioned(
           left: 15,
           top: SizeConfig.screenHeight * 0.04,
@@ -44,7 +52,7 @@ class DefaultLayout extends StatelessWidget {
                   top: 12,
                 ),
                 child: TitleText(
-                  text: title,
+                  text: widget.title,
                   fontSize: Constants.headingSize,
                   weight: FontWeight.bold,
                   textColor: Constants.primaryTextColor,
@@ -53,14 +61,26 @@ class DefaultLayout extends StatelessWidget {
             ],
           ),
         ),
-        if (buttonText != null)
+        if (widget.buttonText != null)
           Positioned(
             right: 30,
             child: Material(
-              color: Colors.black,
+              color: backgroundColor,
               child: InkWell(
                 onTap: () {
                   log('Main Button pressed');
+                },
+                onHover: (hover) {
+                  print('hovering');
+                  if (hover) {
+                    setState(() {
+                      backgroundColor = Constants.backgroundColor;
+                    });
+                  } else {
+                    setState(() {
+                      backgroundColor = Colors.black;
+                    });
+                  }
                 },
                 child: Container(
                   width: 132,
@@ -81,7 +101,7 @@ class DefaultLayout extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: TitleText(
-                    text: buttonText,
+                    text: widget.buttonText,
                     lineHeight: 1,
                     textColor: Constants.primaryTextColor,
                     textAlign: TextAlign.center,
