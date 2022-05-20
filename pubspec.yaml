@@ -44,6 +44,7 @@ dependencies:
   google_fonts: ^2.3.2
   draggable_scrollbar: ^0.1.0
   badges: ^2.0.2
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/fonts/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

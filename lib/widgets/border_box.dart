@@ -25,10 +25,12 @@ class BorderBox extends StatelessWidget {
         border: Border.symmetric(
           vertical: BorderSide(
             color: Constants.borderColor,
+            width: 0.0,
           ),
           horizontal: horizontal!
               ? BorderSide(
                   color: Constants.borderColor,
+                  width: 0.0,
                 )
               : BorderSide.none,
         ),

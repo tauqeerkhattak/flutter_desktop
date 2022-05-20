@@ -44,9 +44,9 @@ class _DefaultLayoutState extends State<DefaultLayout> {
               //     Navigator.pop(context);
               //   },
               // ),
-              const SizedBox(
-                width: 10,
-              ),
+              // const SizedBox(
+              //   width: 10,
+              // ),
               Container(
                 margin: const EdgeInsets.only(
                   top: 12,

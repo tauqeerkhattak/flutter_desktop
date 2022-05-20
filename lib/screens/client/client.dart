@@ -63,6 +63,7 @@ class Client extends StatelessWidget {
                             },
                             child: ClientGridItem(
                               showBadge: index % 5 == 0,
+                              index: index,
                               onDoubleTap: () {
                                 Navigator.push(
                                   context,

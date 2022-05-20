@@ -6,6 +6,7 @@ import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_scroll_bar.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
@@ -49,7 +50,7 @@ class CustomSheet {
                           itemBuilder: (BuildContext context, int index) {
                             return SizedBox(
                               width: SizeConfig.screenWidth,
-                              height: SizeConfig.screenHeight * 0.08,
+                              // height: SizeConfig.screenHeight * 0.08,
                               child: Row(
                                 children: [
                                   const SizedBox(
@@ -118,11 +119,13 @@ class CustomSheet {
                                         child: SizedBox(
                                           width: 21,
                                           height: 24,
-                                          child: Image.asset(
-                                            index % 5 != 0
-                                                ? 'assets/icons/reload.png'
-                                                : 'assets/icons/next.png',
-                                          ),
+                                          child: index % 5 != 0
+                                              ? Image.asset(
+                                                  'assets/icons/next.png',
+                                                )
+                                              : SvgPicture.asset(
+                                                  'assets/svg/re-loop.svg',
+                                                ),
                                         ),
                                       ),
                                     ),
@@ -134,8 +137,8 @@ class CustomSheet {
                                         child: SizedBox(
                                           width: 21,
                                           height: 24,
-                                          child: Image.asset(
-                                            'assets/icons/cancel.png',
+                                          child: SvgPicture.asset(
+                                            'assets/svg/cancel.svg',
                                           ),
                                         ),
                                       ),

@@ -2,16 +2,19 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ClientGridItem extends StatelessWidget {
   final Function() onDoubleTap;
   final String name;
+  final int index;
   final bool showBadge;
   const ClientGridItem({
     Key? key,
     required this.onDoubleTap,
     required this.name,
     required this.showBadge,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -36,10 +39,8 @@ class ClientGridItem extends StatelessWidget {
                     right: 10,
                   ),
                   child: Badge(
-                    badgeContent: Icon(
-                      Icons.play_arrow,
-                      color: Constants.primaryTextColor,
-                      size: 30,
+                    badgeContent: SvgPicture.asset(
+                      'assets/svg/video_icon.svg',
                     ),
                     badgeColor: Colors.transparent,
                     toAnimate: false,
@@ -58,10 +59,14 @@ class ClientGridItem extends StatelessWidget {
                           15,
                         ),
                       ),
-                      child: Image.asset(
-                        'assets/icons/clouds.jpg',
-                        fit: BoxFit.fill,
-                      ),
+                      child: (index == 22 || index == 21)
+                          ? SvgPicture.asset(
+                              'assets/svg/music.svg',
+                            )
+                          : Image.asset(
+                              'assets/icons/clouds.jpg',
+                              fit: BoxFit.fill,
+                            ),
                     ),
                   ),
                 ),
@@ -73,8 +78,8 @@ class ClientGridItem extends StatelessWidget {
                 flex: 4,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    left: 13,
-                    right: 13,
+                    left: 5,
+                    right: 5,
                   ),
                   child: TitleText(
                     text: name,

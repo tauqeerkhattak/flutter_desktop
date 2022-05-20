@@ -24,6 +24,7 @@ class BottomBar extends StatelessWidget {
         border: Border(
           top: BorderSide(
             color: Constants.borderColor,
+            width: 0.0,
           ),
         ),
       ),

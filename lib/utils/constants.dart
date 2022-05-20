@@ -43,14 +43,14 @@ class Constants {
     'We are the loser',
     'love to the end',
     'mRS ZZZZZZ',
-    'Stop now with Love',
+    'Stop now with Love Stop now',
   ];
   static List<String> calls = [
     'User Call',
     'Love to the end',
     'Welcome World',
     'Sun is rising',
-    'Dead or Alive',
+    'Dead or Alive Dead or Alive',
   ];
 
   static void setWindow() async {
