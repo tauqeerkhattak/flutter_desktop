@@ -1,11 +1,17 @@
+import 'dart:developer' as dev;
+
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_desktop/controllers/home_controller.dart';
 import 'package:flutter_desktop/models/json_item.dart';
 import 'package:flutter_desktop/models/list_item.dart';
 import 'package:flutter_desktop/models/list_receiver.dart';
 import 'package:flutter_desktop/models/main_button.dart';
+import 'package:flutter_desktop/models/main_button_list.dart';
 import 'package:flutter_desktop/models/receiver.dart';
 import 'package:flutter_desktop/models/status_menu_item.dart';
+import 'package:flutter_desktop/models/status_menu_item_list.dart';
 import 'package:flutter_desktop/models/temp_receiver.dart';
+import 'package:get/get.dart';
 
 class $List {
   IconData? icon;
@@ -513,5 +519,249 @@ class $List {
     return null;
   }
 
-  void log(String s) {}
+  void removeReceiver1(Receiver receiver) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      final temp = keys[i];
+      if (temp.name == receiver.name) {
+        receiverListItems!.remove(temp);
+        if (temp == currentReceiver) {
+          currentReceiver = keys[i + 1];
+        }
+        if (receiverListItems!.keys.toList().isEmpty) {
+          final controller = Get.find<HomeController>();
+          controller.mainButton = generalMainButton!.text;
+          controller.status = generalStatus!;
+        }
+      }
+      break;
+    }
+  }
+
+  void removeAllReceivers() {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      receiverListItems!.remove(keys[i]);
+    }
+  }
+
+  Duration? setStatus(Receiver receiver, String status) {
+    bool found = false;
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiver.name) {
+        List<ListItem>? items = receiverListItems!.remove(keys[i]);
+        keys[i].status = status;
+        receiverListItems!.remove(keys[i]);
+        receiverListItems!.putIfAbsent(keys[i], () => items!);
+        if (status.contains('{')) {
+          int index = status.indexOf('{');
+          int lastIndex = status.indexOf('}');
+          final time = status.substring(index + 1, lastIndex);
+          int? milliseconds = int.tryParse(time);
+          if (milliseconds != null) {
+            return Duration(milliseconds: milliseconds);
+          } else {
+            log('Milliseconds are null');
+          }
+        }
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      receiver = TempReceiver(name: receiver.name!);
+    }
+    return null;
+  }
+
+  Duration? setStatus1(String receiverName, String status) {
+    bool found = false;
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiverName) {
+        List<ListItem>? items = receiverListItems!.remove(keys[i]);
+        keys[i].status = status;
+        receiverListItems!.remove(keys[i]);
+        receiverListItems!.putIfAbsent(keys[i], () => items!);
+        if (status.contains('{')) {
+          int index = status.indexOf('{');
+          int lastIndex = status.indexOf('}');
+          final time = status.substring(index + 1, lastIndex);
+          int? milliseconds = int.tryParse(time);
+          if (milliseconds != null) {
+            return Duration(milliseconds: milliseconds);
+          } else {
+            log('Milliseconds are null');
+          }
+        }
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      TempReceiver receiver = TempReceiver(name: receiverName);
+      receiverListItems![receiver] = forAllItemsList!;
+    }
+    return null;
+  }
+
+  void setMainButton(Receiver receiver, {MainButton? mainButton}) {
+    bool found = false;
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiver.name) {
+        found = true;
+        if (mainButton != null) {
+          MainButtonList buttonList = MainButtonList(
+            mainButton: mainButton,
+            disabled: false,
+          );
+          keys[i].button = buttonList;
+          final items = receiverListItems![keys[i]];
+          receiverListItems!.remove(keys[i]);
+          receiverListItems!.putIfAbsent(keys[i], () => items!);
+        } else {
+          MainButtonList buttonList = MainButtonList(
+            mainButton: null,
+            disabled: true,
+          );
+          keys[i].button = buttonList;
+          final items = receiverListItems![keys[i]];
+          receiverListItems!.remove(keys[i]);
+          receiverListItems!.putIfAbsent(keys[i], () => items!);
+        }
+        break;
+      }
+    }
+    if (!found) {
+      TempReceiver tempReceiver = TempReceiver(name: receiver.name!);
+      receiverListItems![tempReceiver] = forAllItemsList!;
+    }
+  }
+
+  MainButton? getMainButton(String receiverName) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiverName) {
+        return keys[i].button!.mainButton!;
+      }
+    }
+    return null;
+  }
+
+  void disableMainButton(Receiver receiver) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiver.name) {
+        keys[i].button!.disabled = true;
+      }
+    }
+  }
+
+  void disableMainButton1(String receiverName) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiverName) {
+        keys[i].button!.disabled = true;
+      }
+    }
+  }
+
+  void addStatusMenuItem(Receiver receiver, StatusMenuItem item) {
+    bool receiverFound = false;
+    bool itemFound = false;
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiver.name) {
+        receiverFound = true;
+        List<StatusMenuItem>? items = keys[i].statusMenuItems;
+        for (int j = 0; j < items!.length; j++) {
+          if (items[j].name == item.name && items[j].id == item.id) {
+            itemFound = true;
+            items[j].message = item.message;
+            items[j].time = item.time;
+            keys[i].statusMenuItems![j] = items[j];
+            final listItems = receiverListItems![keys[i]];
+            receiverListItems!.remove(keys[i]);
+            receiverListItems!.putIfAbsent(keys[i], () => listItems!);
+          }
+          if (!itemFound) {
+            StatusMenuItemList list = StatusMenuItemList(
+              item: item,
+            );
+            keys[i].statusMenuItems!.add(list.item!);
+            final listItems = receiverListItems![keys[i]];
+            receiverListItems!.remove(keys[i]);
+            receiverListItems!.putIfAbsent(keys[i], () => listItems!);
+          }
+        }
+      }
+    }
+    if (!receiverFound) {
+      TempReceiver tempReceiver = TempReceiver(name: receiver.name!);
+      receiverListItems![tempReceiver] = forAllItemsList!;
+    }
+  }
+
+  void addStatusMenuItem1(String receiverName, StatusMenuItem item) {
+    bool receiverFound = false;
+    bool itemFound = false;
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiverName) {
+        receiverFound = true;
+        List<StatusMenuItem>? items = keys[i].statusMenuItems;
+        for (int j = 0; j < items!.length; j++) {
+          if (items[j].name == item.name && items[j].id == item.id) {
+            itemFound = true;
+            items[j].message = item.message;
+            items[j].time = item.time;
+            keys[i].statusMenuItems![j] = items[j];
+            final listItems = receiverListItems![keys[i]];
+            receiverListItems!.remove(keys[i]);
+            receiverListItems!.putIfAbsent(keys[i], () => listItems!);
+          }
+          if (!itemFound) {
+            StatusMenuItemList list = StatusMenuItemList(
+              item: item,
+            );
+            keys[i].statusMenuItems!.add(list.item!);
+            final listItems = receiverListItems![keys[i]];
+            receiverListItems!.remove(keys[i]);
+            receiverListItems!.putIfAbsent(keys[i], () => listItems!);
+          }
+        }
+      }
+    }
+    if (!receiverFound) {
+      TempReceiver tempReceiver = TempReceiver(name: receiverName);
+      receiverListItems![tempReceiver] = forAllItemsList!;
+    }
+  }
+
+  void removeStatusMenuItem(Receiver receiver, int id) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiver.name) {
+        List<StatusMenuItem>? items = keys[i].statusMenuItems;
+        for (int j = 0; j < items!.length; j++) {
+          if (items[j].id == id) {
+            items.removeAt(j);
+            keys[i].statusMenuItems = items;
+            final list = receiverListItems![keys[i]];
+            receiverListItems!.remove(keys[i]);
+            receiverListItems!.putIfAbsent(keys[i], () => list!);
+          }
+        }
+      }
+    }
+  }
+
+  void log(String s) {
+    dev.log(
+      s,
+      time: DateTime.now(),
+    );
+  }
 }

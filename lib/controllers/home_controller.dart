@@ -7,6 +7,8 @@ class HomeController extends GetxController {
   int itemsCount = 30;
   int itemHeight = 80;
   int itemWidth = 100;
+  String? mainButton;
+  String status = 'Finnish Shoot';
   Rx<double> cWidth = 0.0.obs;
   int counter = 120;
   final scrollController = ScrollController();

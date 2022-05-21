@@ -48,90 +48,112 @@ class CustomSheet {
                           itemCount: 30,
                           controller: controller.scrollController,
                           itemBuilder: (BuildContext context, int index) {
-                            return SizedBox(
+                            return Container(
+                              margin: const EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                              ),
                               width: SizeConfig.screenWidth,
-                              // height: SizeConfig.screenHeight * 0.08,
                               child: Row(
                                 children: [
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
                                   Expanded(
                                     flex: 4,
-                                    child: TitleText(
-                                      text: isMusic
-                                          ? Constants.calls[
-                                              index % Constants.calls.length]
-                                          : Constants.names[
-                                              index % Constants.names.length],
-                                      fontSize: Constants.headingSize2,
-                                      textColor: Constants.primaryTextColor,
-                                      weight: FontWeight.bold,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 30,
+                                        right: 4,
+                                      ),
+                                      child: TitleText(
+                                        text: isMusic
+                                            ? Constants.calls[
+                                                index % Constants.calls.length]
+                                            : Constants.names[
+                                                index % Constants.names.length],
+                                        fontSize: Constants.headingSize2,
+                                        textColor: Constants.primaryTextColor,
+                                        weight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Expanded(
                                     flex: 3,
-                                    child: Countdown(
-                                      seconds: 10 * index,
-                                      build:
-                                          (BuildContext context, double time) {
-                                        int minutes = time ~/ 60;
-                                        int seconds = (time % 60).toInt();
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            TitleText(
-                                              text: minutes.toString().padLeft(
-                                                    2,
-                                                    '0',
-                                                  ),
-                                              fontSize:
-                                                  Constants.headingSize2 + 5,
-                                              fontFamily: 'Digital7',
-                                              textColor:
-                                                  Constants.primaryTextColor,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            TitleText(
-                                              text:
-                                                  ':${seconds.toString().padLeft(
-                                                        2,
-                                                        '0',
-                                                      )}',
-                                              fontSize:
-                                                  Constants.headingSize2 + 5,
-                                              fontFamily: 'Digital7',
-                                              textColor:
-                                                  Constants.primaryTextColor,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 4,
+                                        right: 5,
+                                      ),
+                                      child: Countdown(
+                                        seconds: 10 * index,
+                                        build: (BuildContext context,
+                                            double time) {
+                                          int minutes = time ~/ 60;
+                                          int seconds = (time % 60).toInt();
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              TitleText(
+                                                text:
+                                                    minutes.toString().padLeft(
+                                                          2,
+                                                          '0',
+                                                        ),
+                                                fontSize:
+                                                    Constants.headingSize2,
+                                                fontFamily: 'Digital7',
+                                                textColor:
+                                                    Constants.primaryTextColor,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              TitleText(
+                                                text:
+                                                    ':${seconds.toString().padLeft(
+                                                          2,
+                                                          '0',
+                                                        )}',
+                                                fontSize:
+                                                    Constants.headingSize2,
+                                                fontFamily: 'Digital7',
+                                                textColor:
+                                                    Constants.primaryTextColor,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                   if (!isMusic)
                                     Expanded(
                                       flex: 1,
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: SizedBox(
-                                          width: 21,
-                                          height: 24,
-                                          child: index % 5 != 0
-                                              ? Image.asset(
-                                                  'assets/icons/next.png',
-                                                )
-                                              : SvgPicture.asset(
-                                                  'assets/svg/re-loop.svg',
-                                                ),
+                                      child: Container(
+                                        margin: const EdgeInsets.only(
+                                          left: 5,
+                                          right: 8,
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {},
+                                          child: SizedBox(
+                                            width: 21,
+                                            height: 24,
+                                            child: index % 5 != 0
+                                                ? Image.asset(
+                                                    'assets/icons/next.png',
+                                                  )
+                                                : SvgPicture.asset(
+                                                    'assets/svg/re-loop.svg',
+                                                  ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   if (!isMusic)
-                                    Expanded(
-                                      flex: 1,
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 8,
+                                        right: 28,
+                                      ),
                                       child: InkWell(
                                         onTap: () {},
                                         child: SizedBox(
@@ -143,9 +165,6 @@ class CustomSheet {
                                         ),
                                       ),
                                     ),
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
                                 ],
                               ),
                             );

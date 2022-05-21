@@ -33,6 +33,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       backgroundColor: Colors.black,
       body: DefaultLayout(
         title: 'STEPS',
+        buttonText: controller.mainButton,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -91,7 +92,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
             ),
             BottomBar(
-              text: 'Finnish Shoot',
+              text: controller.status,
               iconAsset: 'assets/icons/up_arrow.png',
               onTap: () {
                 final sheetController = Get.put(BottomSheetController());
