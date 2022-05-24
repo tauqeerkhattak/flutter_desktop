@@ -3,7 +3,6 @@ import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/client_controller.dart';
 import 'package:flutter_desktop/screens/effects/effects.dart';
 import 'package:flutter_desktop/utils/constants.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/client_grid_item.dart';
@@ -24,8 +23,8 @@ class Client extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SizedBox(
-        width: SizeConfig.screenWidth,
-        height: SizeConfig.screenHeight,
+        width: Get.width,
+        height: Get.height,
         child: DefaultLayout(
           title: 'Client'.toUpperCase(),
           buttonText: 'Send Message',
@@ -41,6 +40,8 @@ class Client extends StatelessWidget {
               Expanded(
                 flex: 19,
                 child: BorderBox(
+                  left: 2.5,
+                  right: 2.5,
                   backgroundColor: Constants.backgroundColor,
                   child: CustomAnimation(
                     controller: controller,

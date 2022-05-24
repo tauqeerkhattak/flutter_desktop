@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/custom_shadow.dart';
+import 'package:get/get.dart';
 
 class CustomAnimation extends StatefulWidget {
   final Widget child;
   final controller;
   final ShadowType shadowType;
+  final double? shadowHeight;
 
   const CustomAnimation({
     Key? key,
     required this.child,
     required this.controller,
     required this.shadowType,
+    this.shadowHeight,
   }) : super(key: key);
 
   @override
@@ -86,10 +88,11 @@ class _CustomAnimationState extends State<CustomAnimation>
               ? Positioned(
                   top: -8,
                   child: SizedBox(
-                    width: SizeConfig.screenWidth,
+                    width: Get.width,
                     child: FadeTransition(
                       opacity: topAnimation,
                       child: CustomShadow(
+                        shadowHeight: widget.shadowHeight,
                         direction: VerticalDirection.down,
                         shadowType: widget.shadowType,
                       ),
@@ -100,10 +103,11 @@ class _CustomAnimationState extends State<CustomAnimation>
           Positioned(
             bottom: 0,
             child: SizedBox(
-              width: SizeConfig.screenWidth,
+              width: Get.width,
               child: FadeTransition(
                 opacity: bottomAnimation,
                 child: CustomShadow(
+                  shadowHeight: widget.shadowHeight,
                   direction: VerticalDirection.up,
                   shadowType: widget.shadowType,
                 ),

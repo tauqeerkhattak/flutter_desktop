@@ -56,7 +56,7 @@ class ClientGridItem extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
-                          15,
+                          6,
                         ),
                       ),
                       child: (index == 22 || index == 21)

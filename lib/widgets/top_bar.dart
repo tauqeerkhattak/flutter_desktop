@@ -45,7 +45,7 @@ class TopBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              width: 20,
+              width: 15,
             ),
             if (icon != null)
               SizedBox(
@@ -54,13 +54,14 @@ class TopBar extends StatelessWidget {
                 child: Image.asset(icon!),
               ),
             const SizedBox(
-              width: 20,
+              width: 10,
             ),
             if (receiverName != null)
               TitleText(
                 text: receiverName,
                 textColor: Constants.primaryColor,
                 weight: FontWeight.bold,
+                lineHeight: 01.1,
                 fontSize: Constants.headingSize1 - 6,
               ),
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
+import 'package:get/get.dart';
 
 enum ShadowType { dark, light }
 
@@ -8,17 +8,21 @@ class CustomShadow extends StatelessWidget {
     Key? key,
     required this.direction,
     required this.shadowType,
+    this.shadowHeight,
   }) : super(key: key);
 
   final VerticalDirection direction;
   final ShadowType shadowType;
+  final double? shadowHeight;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.screenWidth,
+      width: Get.width,
+      height: shadowHeight,
       child: Image.asset(
         ShadowType.light == shadowType ? getLightShadow() : getDarkShadow(),
+        fit: BoxFit.fill,
       ),
     );
   }

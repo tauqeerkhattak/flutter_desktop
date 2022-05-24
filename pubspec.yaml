@@ -40,11 +40,16 @@ dependencies:
   auto_size_text: ^3.0.0
   stop_watch_timer: ^1.4.0
   bitsdojo_window: ^0.1.1+1
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
   timer_count_down: ^2.2.1
   google_fonts: ^2.3.2
   draggable_scrollbar: ^0.1.0
   badges: ^2.0.2
   flutter_svg: ^1.0.3
+  scroll_to_index: ^2.1.1
 
 dev_dependencies:
   flutter_test:

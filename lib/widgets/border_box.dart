@@ -4,35 +4,47 @@ import 'package:flutter_desktop/utils/constants.dart';
 class BorderBox extends StatelessWidget {
   final Color backgroundColor;
   final Widget child;
-  bool? horizontal;
-  final double? margin;
+  final double? top;
+  final double? bottom;
+  final double? left;
+  final double? right;
 
-  BorderBox({
+  const BorderBox({
     Key? key,
     required this.backgroundColor,
     required this.child,
-    this.horizontal = false,
-    this.margin,
+    this.top,
+    this.bottom,
+    this.left,
+    this.right,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        left: margin ?? 5,
-        right: margin ?? 5,
+        left: left ?? 0,
+        right: right ?? 0,
+        bottom: bottom ?? 0,
+        top: top ?? 0,
       ),
       decoration: BoxDecoration(
-        border: Border.symmetric(
-          vertical: BorderSide(
+        border: Border(
+          top: BorderSide(
             color: Constants.borderColor,
             width: 0.0,
           ),
-          horizontal: horizontal!
-              ? BorderSide(
-                  color: Constants.borderColor,
-                  width: 0.0,
-                )
-              : BorderSide.none,
+          bottom: BorderSide(
+            color: Constants.borderColor,
+            width: 0.0,
+          ),
+          left: BorderSide(
+            color: Constants.borderColor,
+            width: 0.0,
+          ),
+          right: BorderSide(
+            color: Constants.borderColor,
+            width: 0.0,
+          ),
         ),
         color: backgroundColor,
       ),

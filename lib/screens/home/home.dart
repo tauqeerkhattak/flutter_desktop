@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
-import 'package:flutter_desktop/screens/client/client.dart';
+import 'package:flutter_desktop/screens/log/log_list.dart';
 import 'package:flutter_desktop/utils/constants.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_animation.dart';
@@ -28,7 +27,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
@@ -46,10 +44,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             Expanded(
               flex: 19,
               child: BorderBox(
+                left: 2.5,
+                right: 2.5,
                 backgroundColor: Constants.backgroundColor,
                 child: CustomAnimation(
                   controller: controller,
                   shadowType: ShadowType.dark,
+                  shadowHeight: 100,
                   child: CustomScrollBar(
                     color: Constants.scrollBarColor,
                     child: GridView.builder(
@@ -70,14 +71,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             height: 137,
                             child: HomeGridItem(
                               onDoubleTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return Client();
-                                    },
-                                  ),
+                                Get.to(
+                                  () => LogList(),
                                 );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (BuildContext context) {
+                                //     return LogList();
+                                //   }),
+                                // );
                               },
                               name: 'Name of the Action $index',
                               icon: Constants.icons[index % 5],

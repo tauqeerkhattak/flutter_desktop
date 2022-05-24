@@ -2,19 +2,21 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
+import 'package:get/get.dart';
 
 class DefaultLayout extends StatefulWidget {
   final String title;
   final Widget child;
   final String? buttonText;
+  final double? marginTop;
 
-  DefaultLayout({
+  const DefaultLayout({
     Key? key,
     required this.title,
     required this.child,
     this.buttonText,
+    this.marginTop,
   }) : super(key: key);
 
   @override
@@ -31,25 +33,25 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         widget.child,
         Positioned(
           left: 15,
-          top: SizeConfig.screenHeight * 0.04,
+          top: widget.marginTop == null ? Get.height * 0.04 : 0,
           child: Row(
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Constants.primaryTextColor,
-                  size: Constants.iconSize2,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.arrow_back,
+              //     color: Constants.primaryTextColor,
+              //     size: Constants.iconSize2,
+              //   ),
+              //   onPressed: () {
+              //     Navigator.pop(context);
+              //   },
+              // ),
               // const SizedBox(
               //   width: 10,
               // ),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 12,
+                margin: EdgeInsets.only(
+                  top: widget.marginTop ?? 15,
                 ),
                 child: TitleText(
                   text: widget.title,

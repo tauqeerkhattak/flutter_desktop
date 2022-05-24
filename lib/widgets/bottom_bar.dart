@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
+import 'package:get/get.dart';
 
 import '../utils/constants.dart';
 
@@ -17,7 +17,7 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SizeConfig.screenWidth,
+      width: Get.width,
       height: Constants.bottomBarHeight,
       decoration: BoxDecoration(
         color: Colors.black,

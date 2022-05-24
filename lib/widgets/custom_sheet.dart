@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_scroll_bar.dart';
@@ -27,9 +26,9 @@ class CustomSheet {
       barrierColor: Colors.transparent,
       builder: (BuildContext context) {
         return SizedBox(
-          height: SizeConfig.screenHeight * 0.75,
+          height: Get.height * 0.75,
           // height: 366,
-          width: SizeConfig.screenWidth,
+          width: Get.width,
           child: Column(
             children: [
               Expanded(
@@ -37,8 +36,8 @@ class CustomSheet {
                   backgroundColor: Colors.transparent,
                   child: BorderBox(
                     backgroundColor: Colors.transparent,
-                    margin: 0,
-                    horizontal: true,
+                    left: 2.5,
+                    right: 2.5,
                     child: CustomAnimation(
                       controller: controller,
                       shadowType: ShadowType.light,
@@ -53,7 +52,7 @@ class CustomSheet {
                                 top: 10,
                                 bottom: 10,
                               ),
-                              width: SizeConfig.screenWidth,
+                              width: Get.width,
                               child: Row(
                                 children: [
                                   Expanded(

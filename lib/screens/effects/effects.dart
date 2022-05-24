@@ -3,7 +3,6 @@ import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/effects_controller.dart';
 import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
-import 'package:flutter_desktop/utils/size_config.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
 import 'package:flutter_desktop/widgets/custom_animation.dart';
@@ -28,7 +27,6 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
@@ -47,6 +45,8 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
             Expanded(
               flex: 19,
               child: BorderBox(
+                left: 2.5,
+                right: 2.5,
                 backgroundColor: Constants.backgroundColor,
                 child: CustomAnimation(
                   controller: controller,
