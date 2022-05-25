@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-
 class Client {
   String? name;
   String? text;
-  IconData? icon;
+  String? icon;
 
   Client({
     this.name,

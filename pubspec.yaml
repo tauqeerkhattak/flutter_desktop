@@ -50,6 +50,7 @@ dependencies:
   badges: ^2.0.2
   flutter_svg: ^1.0.3
   scroll_to_index: ^2.1.1
+  visibility_detector: ^0.2.2
 
 dev_dependencies:
   flutter_test:

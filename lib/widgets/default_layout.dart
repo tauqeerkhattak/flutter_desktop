@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class DefaultLayout extends StatefulWidget {
   final String title;
+  final Color? titleColor;
   final Widget child;
   final String? buttonText;
   final double? marginTop;
@@ -17,6 +18,7 @@ class DefaultLayout extends StatefulWidget {
     required this.child,
     this.buttonText,
     this.marginTop,
+    this.titleColor,
   }) : super(key: key);
 
   @override
@@ -57,7 +59,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
                   text: widget.title,
                   fontSize: Constants.headingSize,
                   weight: FontWeight.bold,
-                  textColor: Constants.primaryTextColor,
+                  textColor: widget.titleColor ?? Constants.primaryTextColor,
                 ),
               ),
             ],
