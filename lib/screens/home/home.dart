@@ -52,6 +52,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   shadowType: ShadowType.dark,
                   shadowHeight: 100,
                   child: CustomScrollBar(
+                    controller: controller.scrollController,
                     color: Constants.scrollBarColor,
                     child: GridView.builder(
                       gridDelegate:

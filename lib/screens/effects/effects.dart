@@ -52,6 +52,7 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                   controller: controller,
                   shadowType: ShadowType.dark,
                   child: CustomScrollBar(
+                    controller: controller.scrollController,
                     color: Constants.scrollBarColor,
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

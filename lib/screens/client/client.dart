@@ -47,6 +47,7 @@ class Client extends StatelessWidget {
                     controller: controller,
                     shadowType: ShadowType.dark,
                     child: CustomScrollBar(
+                      controller: controller.scrollController,
                       color: Colors.black,
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

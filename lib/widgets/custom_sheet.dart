@@ -42,6 +42,7 @@ class CustomSheet {
                       controller: controller,
                       shadowType: ShadowType.light,
                       child: CustomScrollBar(
+                        controller: controller.scrollController,
                         color: Constants.scrollBarColor,
                         child: ListView.builder(
                           itemCount: 30,

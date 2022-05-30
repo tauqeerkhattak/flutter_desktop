@@ -47,6 +47,7 @@ class ListSwitchItem extends StatelessWidget {
                 shadowWidth: 100,
                 controller: controller,
                 child: CustomScrollBar(
+                  controller: controller.scrollController,
                   color: Constants.scrollBarColor,
                   child: ListView.builder(
                     controller: controller.scrollController,

@@ -36,6 +36,7 @@ class _LogListState extends State<LogList> {
             controller: controller,
             shadowType: ShadowType.dark,
             child: CustomScrollBar(
+              controller: controller.scrollController,
               leftMargin: 9,
               color: Constants.scrollBarColor,
               child: BorderBox(

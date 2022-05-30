@@ -44,7 +44,7 @@ class LogSwitchItem extends StatelessWidget {
                   numberOfItems = receiverItemLength;
                 }
                 return SizedBox(
-                  width: width * 0.22863970588,
+                  // width: width * 0.22863970588,
                   child: Row(
                     children: [
                       Column(
@@ -66,7 +66,7 @@ class LogSwitchItem extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(
                           left: width * 0.00919117647,
-                          right: width * 0.00919117647 - 1,
+                          right: width * 0.00919117647,
                           // right: 10,
                           bottom: height * 0.090625,
                         ),

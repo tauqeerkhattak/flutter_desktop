@@ -30,12 +30,10 @@ class LogStatusItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        //FIX THIS AS WELL
         top: 2.5,
         bottom: 2.5,
-        left: 5,
-        right: 10,
       ),
+      width: 227,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -50,12 +48,6 @@ class LogStatusItem extends StatelessWidget {
                   height: 24,
                 ),
           Container(
-            // height: ,
-            width: width * 0.12408088235,
-            margin: EdgeInsets.only(
-              left: width * 0.00919117647,
-              right: width * 0.00919117647,
-            ),
             alignment: Alignment.center,
             child: TitleText(
               text: 'Finnish Shoot',
