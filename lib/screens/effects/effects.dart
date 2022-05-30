@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/effects_controller.dart';
-import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
@@ -70,14 +71,7 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                           },
                           child: HomeGridItem(
                             onDoubleTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return Client();
-                                  },
-                                ),
-                              );
+                              log('Item # $index');
                             },
                             name: 'Name of the Action $index',
                             icon: Constants.icons[index % 4],
