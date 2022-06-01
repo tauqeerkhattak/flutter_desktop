@@ -12,7 +12,7 @@ import 'package:flutter_desktop/models/status_menu_item.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:get/get.dart';
 
-class ClientController extends GetxController {
+class RingsController extends GetxController {
   Rx<int> selectedIndex = (-1).obs;
   RxBool isSheetOpen = false.obs;
   int itemsCount = 30;
@@ -20,23 +20,24 @@ class ClientController extends GetxController {
   int itemWidth = 100;
   Rx<double> cWidth = 0.0.obs;
   final scrollController = ScrollController();
-  final Receiver receiver = Receiver();
+  Receiver receiver = Receiver();
   $List list = $List();
   List<ListItem>? items;
 
   @override
   void onInit() {
     Get.delete<BottomSheetController>();
-    receiver.text = 'Client';
-    receiver.name = 'Doom Gave';
-    receiver.icon = Constants.icons.last;
+    receiver.text = 'RINGS';
     receiver.button = MainButtonList(
       receiver: receiver,
       mainButton: MainButton(
-        text: 'Send Message',
+        text: 'Call',
       ),
+      disabled: false,
     );
-    receiver.status = 'Playing video...';
+    receiver.icon = 'assets/icons/next.png';
+    receiver.name = 'SWETNESS';
+    $List list = $List();
     // items = list.receiverListItems?[receiver];
     items ??= List.generate(20, (index) {
       return ListItem(
@@ -51,6 +52,7 @@ class ClientController extends GetxController {
         ),
       );
     });
+    receiver.status = 'Finnish Shoot';
     receiver.statusMenuItems = List.generate(34, (index) {
       return StatusMenuItem(
         name: Constants.names[index % 5],

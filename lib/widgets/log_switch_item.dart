@@ -92,8 +92,8 @@ class LogSwitchItem extends StatelessWidget {
                   10,
                 ),
               ),
-              width: width * 0.17738970588,
-              height: height * 0.1,
+              width: 193,
+              height: 32,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

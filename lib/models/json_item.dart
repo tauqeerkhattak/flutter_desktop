@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+
 import 'package:flutter_desktop/models/list.dart';
 import 'package:flutter_desktop/models/list_item.dart';
 import 'package:flutter_desktop/models/receiver.dart';
@@ -12,7 +13,7 @@ enum Type {
 
 class JSONItem {
   String? name, text;
-  IconData? icon;
+  String? icon;
   Type? type;
   String? extra;
   List<String>? for_;
@@ -32,5 +33,7 @@ class JSONItem {
     return extra;
   }
 
-  void onDoubleClick(ListItem item, $List list, Receiver receiver) {}
+  void onDoubleClick(ListItem item, $List list, Receiver receiver) {
+    log('Item Double clicked!');
+  }
 }

@@ -7,11 +7,13 @@ import '../utils/constants.dart';
 class BottomBar extends StatelessWidget {
   final String text, iconAsset;
   final Function() onTap;
+  final bool isSheetOpen;
   const BottomBar({
     Key? key,
     required this.text,
     required this.onTap,
     required this.iconAsset,
+    required this.isSheetOpen,
   }) : super(key: key);
 
   @override
@@ -52,8 +54,12 @@ class BottomBar extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 width: 40,
-                child: Image.asset(
-                  iconAsset,
+                child: AnimatedRotation(
+                  duration: const Duration(milliseconds: 300),
+                  turns: isSheetOpen ? 180 / 360 : 0 / 360,
+                  child: Image.asset(
+                    iconAsset,
+                  ),
                 ),
               ),
             ),

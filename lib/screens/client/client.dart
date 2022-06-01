@@ -26,80 +26,104 @@ class Client extends StatelessWidget {
         width: Get.width,
         height: Get.height,
         child: DefaultLayout(
-          title: 'Client'.toUpperCase(),
-          buttonText: 'Send Message',
-          child: Column(
+          title: controller.receiver.text!.toUpperCase(),
+          buttonText: controller.receiver.button!.mainButton!.text,
+          onTap: () {
+            controller.receiver.button!.onClick();
+          },
+          child: Stack(
             children: [
-              const Expanded(
-                flex: 1,
-                child: TopBar(
-                  icon: 'assets/icons/linux.png',
-                  receiverName: 'DOOM GAVE',
-                ),
-              ),
-              Expanded(
-                flex: 19,
-                child: BorderBox(
-                  left: 2.5,
-                  right: 2.5,
-                  backgroundColor: Constants.backgroundColor,
-                  child: CustomAnimation(
-                    controller: controller,
-                    shadowType: ShadowType.dark,
-                    child: CustomScrollBar(
-                      controller: controller.scrollController,
-                      color: Colors.black,
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio:
-                              controller.itemHeight / controller.itemWidth,
-                        ),
-                        itemCount: controller.itemsCount,
-                        controller: controller.scrollController,
-                        padding: const EdgeInsets.only(top: 65),
-                        itemBuilder: (BuildContext context, int index) {
-                          return MouseRegion(
-                            onHover: (hover) {
-                              controller.selectedIndex.value = index;
-                            },
-                            child: ClientGridItem(
-                              showBadge: index % 5 == 0,
-                              index: index,
-                              onDoubleTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return const Effect();
-                                    },
-                                  ),
-                                );
-                              },
-                              name: 'Name of the media $index',
+              Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TopBar(
+                      icon: controller.receiver.icon,
+                      receiverName: controller.receiver.name!.toUpperCase(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 19,
+                    child: BorderBox(
+                      left: 2.5,
+                      right: 2.5,
+                      backgroundColor: Constants.backgroundColor,
+                      child: CustomAnimation(
+                        controller: controller,
+                        shadowType: ShadowType.dark,
+                        child: CustomScrollBar(
+                          controller: controller.scrollController,
+                          color: Colors.black,
+                          child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio:
+                                  controller.itemHeight / controller.itemWidth,
                             ),
-                          );
-                        },
+                            itemCount: controller.items!.length,
+                            controller: controller.scrollController,
+                            padding: const EdgeInsets.only(top: 65),
+                            itemBuilder: (BuildContext context, int index) {
+                              return MouseRegion(
+                                onHover: (hover) {
+                                  controller.selectedIndex.value = index;
+                                },
+                                child: ClientGridItem(
+                                  showBadge: index % 5 == 0,
+                                  index: index,
+                                  onDoubleTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return const Effect();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  name: controller.items![index].item!.text!,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-              BottomBar(
-                text: 'Playing video...',
-                iconAsset: 'assets/icons/up_arrow.png',
-                onTap: () {
-                  final sheetController = Get.put(BottomSheetController());
-                  CustomSheet.showBottomSheet(
-                    isMusic: true,
-                    context: context,
-                    controller: sheetController,
-                    bottomText: 'Ringing... 3/8',
-                  );
-                },
+              Positioned(
+                bottom: 0,
+                left: 2.5,
+                right: 2.5,
+                child: Obx(
+                  () {
+                    final sheetController = Get.put(BottomSheetController());
+                    return CustomBottomSheet(
+                      sheetController: sheetController,
+                      items: controller.receiver.statusMenuItems,
+                      isMusic: true,
+                      height:
+                          controller.isSheetOpen.value ? Get.height * 0.64 : 0,
+                      context: context,
+                      bottomText: 'Ringing... 3/8',
+                    );
+                  },
+                ),
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Obx(
+        () => BottomBar(
+          text: controller.receiver.status!,
+          isSheetOpen: controller.isSheetOpen.value,
+          iconAsset: 'assets/icons/up_arrow.png',
+          onTap: () {
+            controller.isSheetOpen.toggle();
+          },
         ),
       ),
     );

@@ -2,9 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
-import 'package:flutter_desktop/controllers/effects_controller.dart';
+import 'package:flutter_desktop/controllers/rings_controller.dart';
 import 'package:flutter_desktop/models/list_item.dart';
-import 'package:flutter_desktop/screens/rings/rings.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
@@ -17,15 +16,15 @@ import 'package:flutter_desktop/widgets/home_grid_item.dart';
 import 'package:flutter_desktop/widgets/top_bar.dart';
 import 'package:get/get.dart';
 
-class Effect extends StatefulWidget {
-  const Effect({Key? key}) : super(key: key);
+class Rings extends StatefulWidget {
+  const Rings({Key? key}) : super(key: key);
 
   @override
-  State<Effect> createState() => _EffectState();
+  State<Rings> createState() => _RingsState();
 }
 
-class _EffectState extends State<Effect> with TickerProviderStateMixin {
-  final controller = Get.put(EffectsController());
+class _RingsState extends State<Rings> with TickerProviderStateMixin {
+  final controller = Get.put(RingsController());
   bool hasScrolled = false;
 
   @override
@@ -33,8 +32,11 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
-        title: controller.receiver.text!.toUpperCase(),
+        title: controller.receiver.text!,
         buttonText: controller.receiver.button!.mainButton!.text,
+        onTap: () {
+          controller.receiver.button!.onClick();
+        },
         child: Stack(
           children: [
             Column(
@@ -43,8 +45,8 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                 Expanded(
                   flex: 1,
                   child: TopBar(
-                    icon: controller.receiver.icon,
-                    receiverName: controller.receiver.name?.toUpperCase(),
+                    icon: controller.receiver.icon!,
+                    receiverName: controller.receiver.name!,
                   ),
                 ),
                 Expanded(
@@ -79,7 +81,6 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                                 onDoubleTap: () {
                                   log('Item # $index');
                                   listItem.onDoubleClick();
-                                  Get.to(() => const Rings());
                                 },
                                 name: listItem.item!.text!,
                                 icon: listItem.item!.icon!,
@@ -103,12 +104,12 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                   final sheetController = Get.put(BottomSheetController());
                   return CustomBottomSheet(
                     sheetController: sheetController,
+                    items: controller.receiver.statusMenuItems,
                     isMusic: false,
+                    context: context,
                     height:
                         controller.isSheetOpen.value ? Get.height * 0.64 : 0,
-                    items: controller.receiver.statusMenuItems,
-                    context: context,
-                    bottomText: 'Playing "5" Effect',
+                    bottomText: 'Ringing... 3/8',
                   );
                 },
               ),
@@ -119,8 +120,8 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
       bottomNavigationBar: Obx(
         () => BottomBar(
           text: controller.receiver.status!,
-          iconAsset: 'assets/icons/up_arrow.png',
           isSheetOpen: controller.isSheetOpen.value,
+          iconAsset: 'assets/icons/up_arrow.png',
           onTap: () {
             controller.isSheetOpen.toggle();
           },

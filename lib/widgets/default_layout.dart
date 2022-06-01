@@ -11,6 +11,7 @@ class DefaultLayout extends StatefulWidget {
   final Widget child;
   final String? buttonText;
   final double? marginTop;
+  final Function()? onTap;
 
   const DefaultLayout({
     Key? key,
@@ -19,6 +20,7 @@ class DefaultLayout extends StatefulWidget {
     this.buttonText,
     this.marginTop,
     this.titleColor,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -71,9 +73,10 @@ class _DefaultLayoutState extends State<DefaultLayout> {
             child: Material(
               color: backgroundColor,
               child: InkWell(
-                onTap: () {
-                  log('Main Button pressed');
-                },
+                onTap: widget.onTap ??
+                    () {
+                      log('Main Button pressed');
+                    },
                 onHover: (hover) {
                   print('hovering');
                   if (hover) {
