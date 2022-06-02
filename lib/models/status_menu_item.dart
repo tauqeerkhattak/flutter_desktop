@@ -6,8 +6,7 @@ class StatusMenuItem {
   String? name;
   Type? type;
   String? message;
-  double? time;
-  bool? timer_down;
+  int? time;
 
   StatusMenuItem({
     this.timerDown,
@@ -16,7 +15,6 @@ class StatusMenuItem {
     this.type,
     this.message,
     this.time,
-    this.timer_down,
   });
 
   void onAdded(String message) {}

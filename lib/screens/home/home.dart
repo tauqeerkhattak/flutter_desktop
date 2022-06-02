@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
+import 'package:flutter_desktop/models/data.dart';
 import 'package:flutter_desktop/models/list_item.dart';
 import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
@@ -32,7 +33,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
-        title: controller.list.text.toString(),
+        title: Data.list.name!,
         buttonText: controller.mainButton,
         child: Stack(
           children: [
@@ -66,11 +67,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             crossAxisCount: 3,
                           ),
                           controller: controller.scrollController,
-                          itemCount: controller.list.forAllItemsList!.length,
+                          itemCount: Data.list.forAllItemsList!.length,
                           padding: const EdgeInsets.only(top: 65),
                           itemBuilder: (BuildContext context, int index) {
                             ListItem listItem =
-                                controller.list.forAllItemsList![index];
+                                Data.list.forAllItemsList![index];
                             return MouseRegion(
                               onHover: (hover) {
                                 controller.selectedIndex.value = index;
@@ -86,7 +87,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     listItem.onDoubleClick();
                                   },
                                   name: listItem.item!.text!,
-                                  icon: listItem.item!.icon!,
+                                  icon: listItem.item!.icon ?? Data.list.icon!,
                                   enabled: !listItem.disable!,
                                 ),
                               ),
@@ -111,7 +112,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     height:
                         controller.isSheetOpen.value ? Get.height * 0.64 : 0,
                     context: context,
-                    items: controller.list.generalStatusMenuItems,
+                    items: Data.list.generalStatusMenuItems,
                     bottomText: controller.status,
                     isMusic: false,
                   );
@@ -123,7 +124,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       bottomNavigationBar: Obx(
         () => BottomBar(
-          text: controller.list.generalStatus!,
+          text: Data.list.generalStatus!,
           iconAsset: 'assets/icons/up_arrow.png',
           isSheetOpen: controller.isSheetOpen.value,
           onTap: () {

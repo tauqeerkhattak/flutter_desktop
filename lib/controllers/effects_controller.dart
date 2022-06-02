@@ -55,7 +55,7 @@ class EffectsController extends GetxController {
     receiver.statusMenuItems = List.generate(23, (index) {
       return StatusMenuItem(
         name: Constants.names[index % 5],
-        time: Random().nextInt(5000).toDouble(),
+        time: Random().nextInt(5000),
       );
     });
     super.onInit();

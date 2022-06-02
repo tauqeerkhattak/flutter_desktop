@@ -17,7 +17,9 @@ class Receiver extends Client {
     this.statusMenuItems,
     this.button,
     String? name,
-  }) : super(name: name);
+    String? text,
+    String? icon,
+  }) : super(name: name, text: text, icon: icon);
 
   void setOwner($List owner) {
     this.owner = owner;

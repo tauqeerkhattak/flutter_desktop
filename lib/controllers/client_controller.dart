@@ -54,7 +54,7 @@ class ClientController extends GetxController {
     receiver.statusMenuItems = List.generate(34, (index) {
       return StatusMenuItem(
         name: Constants.names[index % 5],
-        time: Random().nextInt(3000).toDouble(),
+        time: Random().nextInt(3000),
       );
     });
     super.onInit();

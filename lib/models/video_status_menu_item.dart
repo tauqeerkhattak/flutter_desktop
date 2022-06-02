@@ -1,8 +1,8 @@
 import 'package:flutter_desktop/models/main_button.dart';
+import 'package:flutter_desktop/models/status_menu_item.dart';
 
-enum Type { video, message }
-
-class VideoStatusMenuItem {
+class VideoStatusMenuItem extends StatusMenuItem {
+  @override
   Type? type = Type.video;
   bool? showTools;
   bool? isLoop;
@@ -12,12 +12,14 @@ class VideoStatusMenuItem {
   Function()? onLoopSwitchClicked;
 
   VideoStatusMenuItem({
-    this.type,
-    this.showTools,
-    this.isLoop,
-    this.cancel,
-    this.onCancelClicked,
-    this.loopSwitch,
-    this.onLoopSwitchClicked,
-  });
+    int? id,
+    String? name,
+    int? time,
+    bool? timer_down,
+  }) : super(
+          id: id,
+          name: name,
+          time: time,
+          timerDown: timer_down,
+        );
 }

@@ -1,6 +1,5 @@
 import 'dart:developer' as dev;
 
-import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
 import 'package:flutter_desktop/models/json_item.dart';
 import 'package:flutter_desktop/models/list_item.dart';
@@ -14,14 +13,21 @@ import 'package:flutter_desktop/models/temp_receiver.dart';
 import 'package:get/get.dart';
 
 class $List {
-  IconData? icon;
+  String? icon;
   String? text;
+  String? name;
   MainButton? generalMainButton;
   String? generalStatus;
   List<StatusMenuItem>? generalStatusMenuItems;
   List<ListItem>? forAllItemsList;
   Map<Receiver, List<ListItem>>? receiverListItems;
   Receiver? currentReceiver;
+
+  $List({
+    this.name,
+    this.text,
+    this.icon,
+  });
 
   void add(JSONItem item) {
     bool found = false;

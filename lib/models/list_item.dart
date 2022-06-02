@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_desktop/models/json_item.dart';
 import 'package:flutter_desktop/models/list.dart';
 import 'package:flutter_desktop/models/receiver.dart';
@@ -34,6 +36,10 @@ class ListItem {
   }
 
   void onDoubleClick() {
-    item?.onDoubleClick(this, owner!, receiver!);
+    if (item == null) {
+      log('JSONItem received is null');
+    } else {
+      item?.onDoubleClick(this, owner!, receiver!);
+    }
   }
 }
