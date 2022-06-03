@@ -77,9 +77,9 @@ class Data {
 
   static void initialize() {
     List<JSONItem> temp = [ci1, ci2, ci3, ci4];
-    list.forAllItemsList = List.generate(temp.length, (index) {
+    list.forAllItemsList = List.generate(temp.length + 23, (index) {
       return ListItem(
-        item: temp[index],
+        item: temp[index % 4],
         disable: (index % getRandom()) == 0,
       );
     });

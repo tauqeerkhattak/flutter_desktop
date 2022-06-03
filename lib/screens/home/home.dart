@@ -33,7 +33,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
-        title: Data.list.name!,
+        title: Data.list.name!.toUpperCase(),
         buttonText: controller.mainButton,
         child: Stack(
           children: [

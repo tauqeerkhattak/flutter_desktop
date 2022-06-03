@@ -70,9 +70,13 @@ class _CustomAnimationState extends State<CustomAnimation>
             widget.controller.scrollController.offset /
                 widget.controller.scrollController.position.maxScrollExtent;
         if (widget.controller.cWidth.value < 0.025) {
-          topAnimationController.forward();
+          setState(() {
+            topAnimationController.forward();
+          });
         } else if (widget.controller.cWidth.value >= 0.02) {
-          topAnimationController.reverse();
+          setState(() {
+            topAnimationController.reverse();
+          });
         }
         if (widget.controller.cWidth.value > 0.975) {
           bottomAnimationController.forward();
@@ -92,7 +96,9 @@ class _CustomAnimationState extends State<CustomAnimation>
                     child: FadeTransition(
                       opacity: topAnimation,
                       child: CustomShadow(
-                        shadowHeight: widget.shadowHeight,
+                        shadowHeight: widget.controller.cWidth.value > 0.05
+                            ? widget.shadowHeight
+                            : 0,
                         direction: VerticalDirection.down,
                         shadowType: widget.shadowType,
                       ),
