@@ -421,7 +421,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.3"
+    version: "0.27.4"
   scroll_pos:
     dependency: transitive
     description:
@@ -461,7 +461,7 @@ packages:
       name: stop_watch_timer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   stream_channel:
     dependency: transitive
     description:

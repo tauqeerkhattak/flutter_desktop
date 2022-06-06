@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/list_switch_controller.dart';
+import 'package:flutter_desktop/models/list_switch_class.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/custom_scroll_bar.dart';
@@ -30,6 +31,7 @@ class ListSwitchItem extends StatelessWidget {
     'Exerci',
   ];
   ListSwitchItem({Key? key}) : super(key: key);
+  ListSwitchClass listSwitchClass = ListSwitchClass();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class ListSwitchItem extends StatelessWidget {
                         index: index,
                         child: Obx(
                           () => LogSwitchItem(
+                            listSwitchClass: listSwitchClass,
                             width: controller.width.value,
                             height: controller.height.value,
                             receiverName: controller.receivers[index],
@@ -87,6 +90,7 @@ class ListSwitchItem extends StatelessWidget {
                     size: 40,
                   ),
                   onPressed: () {
+                    listSwitchClass.scrollBackward();
                     if (controller.currentIndex != 0) {
                       controller.currentIndex--;
                       print('INDEX: ${controller.currentIndex}');
@@ -110,6 +114,7 @@ class ListSwitchItem extends StatelessWidget {
                     size: 40,
                   ),
                   onPressed: () {
+                    listSwitchClass.scrollForward();
                     if (controller.currentIndex !=
                         controller.receivers.length) {
                       print('INDEX: ${controller.currentIndex}');

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/models/data.dart';
 import 'package:flutter_desktop/screens/home/home.dart';
 import 'package:flutter_desktop/utils/constants.dart';
+import 'package:flutter_desktop/widgets/data.dart';
 import 'package:get/get.dart';
 
 void main() async {
