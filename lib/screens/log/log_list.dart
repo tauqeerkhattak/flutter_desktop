@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import '../../widgets/border_box.dart';
 
 class LogList extends StatefulWidget {
-  LogList({Key? key}) : super(key: key);
+  const LogList({Key? key}) : super(key: key);
 
   @override
   State<LogList> createState() => _LogListState();
