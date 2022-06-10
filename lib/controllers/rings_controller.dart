@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/models/json_item.dart';
 import 'package:flutter_desktop/models/list.dart';

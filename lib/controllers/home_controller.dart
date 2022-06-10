@@ -14,10 +14,6 @@ class HomeController extends GetxController {
   final scrollController = ScrollController();
   bool hasScrolled = false;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onClose() {

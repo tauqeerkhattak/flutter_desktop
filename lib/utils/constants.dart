@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:window_size/window_size.dart';
 
 class Constants {
-  static Color primaryColor = Color(0xff66CEDB);
-  static Color primaryTextColor = Color(0xffE5E5E5);
+  static Color primaryColor = const Color(0xff66CEDB);
+  static Color primaryTextColor = const Color(0xffE5E5E5);
   static Color secondaryColor = Colors.grey;
   static Color backgroundColor = Colors.grey.shade800;
-  static Color scrollBarColor = Color(0xff707070);
-  static Color borderColor = Color(0xffc4c4c4);
-  static Color error = Color(0xffD7554C);
-  static Color dark = Color(0xff313131);
+  static Color scrollBarColor = const Color(0xff707070);
+  static Color borderColor = const Color(0xffc4c4c4);
+  static Color error = const Color(0xffD7554C);
+  static Color dark = const Color(0xff313131);
 
   // static double headingSize = SizeConfig.screenHeight * 0.04;
   static double logoSize = 40;

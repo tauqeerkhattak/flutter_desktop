@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/models/list_switch_class.dart';
 import 'package:flutter_desktop/utils/constants.dart';

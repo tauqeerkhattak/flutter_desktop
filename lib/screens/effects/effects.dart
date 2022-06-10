@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/effects_controller.dart';
 import 'package:flutter_desktop/models/list_item.dart';
-import 'package:flutter_desktop/screens/rings/rings.dart';
+import 'package:flutter_desktop/screens/log/log_list.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
@@ -79,7 +79,7 @@ class _EffectState extends State<Effect> with TickerProviderStateMixin {
                                 onDoubleTap: () {
                                   log('Item # $index');
                                   listItem.onDoubleClick();
-                                  Get.to(() => const Rings());
+                                  Get.to(() => const LogList());
                                 },
                                 name: listItem.item!.text!,
                                 icon: listItem.item!.icon!,
