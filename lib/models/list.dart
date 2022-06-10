@@ -40,17 +40,16 @@ class $List {
       }
     } else {
       for (int i = 0; i < item.for_!.length; i++) {
-        ListItem listItem = ListItem();
+        ListItem listItem = ListItem(item: item);
         final keys = receiverListItems!.keys.toList();
         for (int j = 0; j < keys.length; j++) {
-          if (keys[j].name == listItem.receiver!.name) {
+          if (keys[j].name == item.name) {
             receiverListItems![keys[j]]!.add(listItem);
             found = true;
           }
         }
         if (!found) {
-          TempReceiver tempReceiver =
-              TempReceiver(name: listItem.receiver!.name!);
+          TempReceiver tempReceiver = TempReceiver(name: item.name!);
           receiverListItems!.addAll({tempReceiver: forAllItemsList!});
           receiverListItems!.putIfAbsent(tempReceiver, () => [listItem]);
         }
@@ -525,11 +524,11 @@ class $List {
     return null;
   }
 
-  void removeReceiver1(Receiver receiver) {
+  void removeReceiver1(String receiverName) {
     final keys = receiverListItems!.keys.toList();
     for (int i = 0; i < keys.length; i++) {
       final temp = keys[i];
-      if (temp.name == receiver.name) {
+      if (temp.name == receiverName) {
         receiverListItems!.remove(temp);
         if (temp == currentReceiver) {
           currentReceiver = keys[i + 1];
@@ -750,6 +749,24 @@ class $List {
     final keys = receiverListItems!.keys.toList();
     for (int i = 0; i < keys.length; i++) {
       if (keys[i].name == receiver.name) {
+        List<StatusMenuItem>? items = keys[i].statusMenuItems;
+        for (int j = 0; j < items!.length; j++) {
+          if (items[j].id == id) {
+            items.removeAt(j);
+            keys[i].statusMenuItems = items;
+            final list = receiverListItems![keys[i]];
+            receiverListItems!.remove(keys[i]);
+            receiverListItems!.putIfAbsent(keys[i], () => list!);
+          }
+        }
+      }
+    }
+  }
+
+  void removeStatusMenuItem1(String receiverName, int id) {
+    final keys = receiverListItems!.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i].name == receiverName) {
         List<StatusMenuItem>? items = keys[i].statusMenuItems;
         for (int j = 0; j < items!.length; j++) {
           if (items[j].id == id) {

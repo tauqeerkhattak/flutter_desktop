@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
@@ -16,6 +17,7 @@ class LogStatusItem extends StatelessWidget {
   final double height;
   final Status status;
   final String statusItemName;
+  final ListSwitchClass listSwitchClass;
 
   const LogStatusItem({
     Key? key,
@@ -25,42 +27,46 @@ class LogStatusItem extends StatelessWidget {
     required this.height,
     required this.status,
     required this.statusItemName,
+    required this.listSwitchClass,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        top: 2.5,
-        bottom: 2.5,
-      ),
-      width: 227,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          (index == random)
-              ? Image.asset(
-                  Constants.icons[random],
-                  width: 24,
-                  height: 24,
-                )
-              : const SizedBox(
-                  width: 24,
-                  height: 24,
-                ),
-          Container(
-            alignment: Alignment.center,
-            child: TitleText(
-              text: 'Finnish Shoot',
-              fontSize: width * 0.01838235294,
-              weight: FontWeight.w500,
-              textColor: Constants.primaryTextColor,
+    return InkWell(
+      onDoubleTap: () {},
+      child: Container(
+        margin: const EdgeInsets.only(
+          top: 2.5,
+          bottom: 2.5,
+        ),
+        width: 227,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            (index == random)
+                ? Image.asset(
+                    Constants.icons[random],
+                    width: 24,
+                    height: 24,
+                  )
+                : const SizedBox(
+                    width: 24,
+                    height: 24,
+                  ),
+            Container(
+              alignment: Alignment.center,
+              child: TitleText(
+                text: 'Finnish Shoot',
+                fontSize: width * 0.01838235294,
+                weight: FontWeight.w500,
+                textColor: Constants.primaryTextColor,
+              ),
             ),
-          ),
-          getStatusItem(
-            index,
-            random,
-          ),
-        ],
+            getStatusItem(
+              index,
+              random,
+            ),
+          ],
+        ),
       ),
     );
   }

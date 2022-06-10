@@ -8,15 +8,27 @@ import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/title_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
-class MainComponentUI extends StatelessWidget {
+class MainComponentUI extends StatefulWidget {
+  MainComponentUI({Key? key}) : super(key: key);
+
+  @override
+  State<MainComponentUI> createState() => _MainComponentUIState();
+}
+
+class _MainComponentUIState extends State<MainComponentUI> {
   final controller = Get.put(MainComponentController());
   final MainComponent component = MainComponent(
     events: MainComponentEvent(),
     icon: 'assets/icons/tv.png',
   );
 
-  MainComponentUI({Key? key}) : super(key: key);
+  @override
+  void initState() {
+    component.setCountDownTime(component.countDownTime);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,16 +99,56 @@ class MainComponentUI extends StatelessWidget {
             SizedBox(
               width: controller.width.value * 0.01464128843,
             ),
-            Container(
-              width: controller.width.value * 0.19253294289,
-              height: double.infinity,
-              alignment: Alignment.centerLeft,
-              child: TitleText(
-                text: '30:21',
-                fontSize: 55,
-                fontFamily: 'Digital7',
-                weight: FontWeight.w400,
-                textColor: Constants.primaryTextColor,
+            InkWell(
+              onTap: () {
+                if (component.countDownStatus == CountDownStatus.STARTED) {
+                  controller.countdownController.pause();
+                  component.countDownStatus = CountDownStatus.PAUSED;
+                } else if (component.countDownStatus ==
+                    CountDownStatus.PAUSED) {
+                  controller.countdownController.resume();
+                  component.countDownStatus = CountDownStatus.STARTED;
+                }
+              },
+              child: Container(
+                width: controller.width.value * 0.19253294289,
+                height: double.infinity,
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Countdown(
+                      controller: controller.countdownController,
+                      seconds: 3600,
+                      build: (BuildContext context, double time) {
+                        Duration duration = Duration(seconds: time.toInt());
+                        int seconds = duration.inSeconds % 60;
+                        int minutes = duration.inMinutes;
+                        String s = seconds.toString().padLeft(2, '0');
+                        String m = minutes.toString();
+                        return TitleText(
+                          text: '$m:$s',
+                          fontSize: 45,
+                          fontFamily: 'Digital7',
+                          weight: FontWeight.w400,
+                          textColor: Constants.primaryTextColor,
+                        );
+                      },
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          component.addExtraCountDownTime(1200);
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(

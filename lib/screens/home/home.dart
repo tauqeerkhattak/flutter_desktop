@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
-import 'package:flutter_desktop/models/data.dart';
-import 'package:flutter_desktop/models/list_item.dart';
-import 'package:flutter_desktop/screens/client/client.dart';
+import 'package:flutter_desktop/screens/log/log_list.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
@@ -33,7 +31,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
-        title: Data.list.name!,
+        title: 'STEPS',
         buttonText: controller.mainButton,
         child: Stack(
           children: [
@@ -67,11 +65,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             crossAxisCount: 3,
                           ),
                           controller: controller.scrollController,
-                          itemCount: Data.list.forAllItemsList!.length,
+                          itemCount: 23,
                           padding: const EdgeInsets.only(top: 65),
                           itemBuilder: (BuildContext context, int index) {
-                            ListItem listItem =
-                                Data.list.forAllItemsList![index];
                             return MouseRegion(
                               onHover: (hover) {
                                 controller.selectedIndex.value = index;
@@ -82,13 +78,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 child: HomeGridItem(
                                   onDoubleTap: () {
                                     Get.to(
-                                      () => Client(),
+                                      () => LogList(),
                                     );
-                                    listItem.onDoubleClick();
                                   },
-                                  name: listItem.item!.text!,
-                                  icon: listItem.item!.icon ?? Data.list.icon!,
-                                  enabled: !listItem.disable!,
+                                  name: 'ABC',
+                                  icon: Constants.icons[1],
+                                  enabled: true,
                                 ),
                               ),
                             );
@@ -112,7 +107,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     height:
                         controller.isSheetOpen.value ? Get.height * 0.64 : 0,
                     context: context,
-                    items: Data.list.generalStatusMenuItems,
+                    items: [],
                     bottomText: controller.status,
                     isMusic: false,
                   );
@@ -124,7 +119,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       bottomNavigationBar: Obx(
         () => BottomBar(
-          text: Data.list.generalStatus!,
+          text: 'Finnish Shoot',
           iconAsset: 'assets/icons/up_arrow.png',
           isSheetOpen: controller.isSheetOpen.value,
           onTap: () {

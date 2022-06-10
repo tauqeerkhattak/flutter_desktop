@@ -19,11 +19,12 @@ class MainComponent {
   String icon;
   MainComponentEvent events;
   int countDownTime = 3600000;
-  CountDownStatus? countDownStatus;
+  CountDownStatus? countDownStatus = CountDownStatus.STARTED;
   AppStatus? appStatus;
   StopWatchTimer? timer;
   bool reset = false;
-  final controller = Get.find<MainComponentController>();
+  final MainComponentController controller =
+      Get.find<MainComponentController>();
 
   MainComponent({
     required this.icon,

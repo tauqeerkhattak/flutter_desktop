@@ -14,6 +14,8 @@ class LogController extends GetxController {
         asset: Constants.icons[Constants.names.indexOf(e) % 6],
         onVisibilityChanged: (info) {},
         name: e,
+        timeColor:
+            Constants.names.indexOf(e) % 4 == 0 ? Colors.red : Colors.white,
         time: '12:0${Constants.names.indexOf(e)}',
         logKey: Key('$e${e.length}'),
       );
