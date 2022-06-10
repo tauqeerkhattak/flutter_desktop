@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/controllers/bottom_sheet_controller.dart';
 import 'package:flutter_desktop/controllers/home_controller.dart';
-import 'package:flutter_desktop/screens/log/log_list.dart';
+import 'package:flutter_desktop/models/list_item.dart';
+import 'package:flutter_desktop/screens/client/client.dart';
 import 'package:flutter_desktop/utils/constants.dart';
 import 'package:flutter_desktop/widgets/border_box.dart';
 import 'package:flutter_desktop/widgets/bottom_bar.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_desktop/widgets/default_layout.dart';
 import 'package:flutter_desktop/widgets/home_grid_item.dart';
 import 'package:flutter_desktop/widgets/top_bar.dart';
 import 'package:get/get.dart';
+
+import '../../widgets/data.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -31,7 +34,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DefaultLayout(
-        title: 'STEPS',
+        title: Data.list.name!,
         buttonText: controller.mainButton,
         child: Stack(
           children: [
@@ -65,9 +68,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             crossAxisCount: 3,
                           ),
                           controller: controller.scrollController,
-                          itemCount: 23,
+                          itemCount: Data.list.forAllItemsList!.length,
                           padding: const EdgeInsets.only(top: 65),
                           itemBuilder: (BuildContext context, int index) {
+                            ListItem listItem =
+                                Data.list.forAllItemsList![index];
                             return MouseRegion(
                               onHover: (hover) {
                                 controller.selectedIndex.value = index;
@@ -78,12 +83,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 child: HomeGridItem(
                                   onDoubleTap: () {
                                     Get.to(
-                                      () => LogList(),
+                                      () => Client(),
                                     );
+                                    listItem.onDoubleClick();
                                   },
-                                  name: 'ABC',
-                                  icon: Constants.icons[1],
-                                  enabled: true,
+                                  name: listItem.item!.name!,
+                                  icon: listItem.item!.icon ?? Data.list.icon!,
+                                  enabled: !listItem.disable!,
                                 ),
                               ),
                             );
@@ -107,7 +113,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     height:
                         controller.isSheetOpen.value ? Get.height * 0.64 : 0,
                     context: context,
-                    items: [],
+                    items: Data.list.generalStatusMenuItems,
                     bottomText: controller.status,
                     isMusic: false,
                   );
@@ -119,7 +125,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       bottomNavigationBar: Obx(
         () => BottomBar(
-          text: 'Finnish Shoot',
+          text: Data.list.generalStatus!,
           iconAsset: 'assets/icons/up_arrow.png',
           isSheetOpen: controller.isSheetOpen.value,
           onTap: () {

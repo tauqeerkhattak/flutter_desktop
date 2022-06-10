@@ -19,8 +19,9 @@ class $List {
   MainButton? generalMainButton;
   String? generalStatus;
   List<StatusMenuItem>? generalStatusMenuItems;
-  List<ListItem>? forAllItemsList;
-  Map<Receiver, List<ListItem>>? receiverListItems;
+  List<ListItem>? forAllItemsList = [];
+  Map<Receiver, List<ListItem>>? receiverListItems =
+      <Receiver, List<ListItem>>{};
   Receiver? currentReceiver;
 
   $List({
